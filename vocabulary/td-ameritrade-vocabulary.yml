@@ -1,0 +1,147 @@
+vocabulary:
+  name: TD Ameritrade Vocabulary
+  description: >-
+    Domain vocabulary for the TD Ameritrade brokerage API (now deprecated following
+    acquisition by Charles Schwab in May 2024). Documents key trading, account
+    management, and market data terms from the TD Ameritrade developer platform.
+  url: https://developer.tdameritrade.com/
+  version: '2026-05-03'
+  tags:
+    - Finance
+    - Brokerage
+    - Trading
+    - Market Data
+    - Deprecated
+
+terms:
+
+  - term: TD Ameritrade
+    definition: >-
+      Online brokerage firm acquired by Charles Schwab. TD Ameritrade provided
+      developer APIs for programmatic trading until May 2024 when the platform
+      was fully migrated to Charles Schwab.
+    type: Brand
+    tags:
+      - Company
+
+  - term: Charles Schwab Trader API
+    definition: >-
+      The successor API to TD Ameritrade following the Schwab acquisition.
+      Available at developer.schwab.com for new registrations.
+    type: Service
+    tags:
+      - Successor
+
+  - term: Account
+    definition: >-
+      A brokerage account holding securities positions, cash balances, and
+      order history. Can be CASH or MARGIN type.
+    type: Resource
+    tags:
+      - Core Resource
+
+  - term: Order
+    definition: >-
+      An instruction to buy or sell a security. Can be MARKET, LIMIT, STOP,
+      STOP_LIMIT, or other types with various duration and session options.
+    type: Resource
+    tags:
+      - Trading
+
+  - term: Order Leg
+    definition: >-
+      A single component of a trade order specifying the instruction (BUY/SELL),
+      quantity, and instrument. Complex orders may have multiple legs.
+    type: Concept
+    tags:
+      - Trading
+
+  - term: CUSIP
+    definition: >-
+      Committee on Uniform Securities Identification Procedures number. A 9-character
+      alphanumeric identifier uniquely identifying a security in North America.
+    type: Identifier
+    tags:
+      - Instrument
+
+  - term: Quote
+    definition: >-
+      Real-time market data for a security including bid/ask prices, last trade,
+      volume, and other market statistics.
+    type: Resource
+    tags:
+      - Market Data
+
+  - term: Option Chain
+    definition: >-
+      A list of all available option contracts for a given underlying security,
+      organized by expiration date and strike price.
+    type: Resource
+    tags:
+      - Options
+
+  - term: Watchlist
+    definition: >-
+      A named list of securities that a user tracks for monitoring purposes.
+      Persisted per account.
+    type: Resource
+    tags:
+      - Portfolio Management
+
+  - term: Price History
+    definition: >-
+      Historical OHLCV (Open, High, Low, Close, Volume) price data for a security,
+      available at minute, daily, weekly, or monthly frequencies.
+    type: Resource
+    tags:
+      - Market Data
+
+  - term: Market Movers
+    definition: >-
+      The top 10 securities with the largest price changes (up or down) by value
+      or percentage for a given market index.
+    type: Resource
+    tags:
+      - Market Data
+
+  - term: OAuth 2.0
+    definition: >-
+      Authentication protocol used by TD Ameritrade API. Requires authorization
+      code flow with offline access scope for refresh tokens.
+    type: Authentication
+    tags:
+      - Security
+
+  - term: Pattern Day Trader
+    abbreviation: PDT
+    definition: >-
+      FINRA-defined classification for accounts that execute four or more day trades
+      within five business days in a margin account, requiring $25,000 minimum equity.
+    type: Regulatory Concept
+    tags:
+      - Regulatory
+      - Compliance
+
+  - term: Buying Power
+    definition: >-
+      The amount of funds available in an account to purchase securities.
+      For margin accounts, this exceeds the cash balance.
+    type: Account Metric
+    tags:
+      - Account
+
+  - term: Day Trade
+    definition: >-
+      Opening and closing the same security position within the same trading day.
+    type: Trading Concept
+    tags:
+      - Trading
+
+  - term: Good Till Cancel
+    abbreviation: GTC
+    definition: >-
+      An order duration option where the order remains active until it is either
+      executed or manually cancelled by the trader.
+    type: Order Duration
+    tags:
+      - Order Management

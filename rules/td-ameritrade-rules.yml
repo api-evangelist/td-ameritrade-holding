@@ -1,0 +1,95 @@
+extends: spectral:oas
+rules:
+  tdameritrade-path-account-id:
+    description: Account-level paths should use {accountId} path parameter
+    message: "Account-level path '{{property}}' should include {accountId} parameter"
+    severity: warn
+    given: "$.paths[/accounts/*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: ".*\\{accountId\\}.*"
+
+  tdameritrade-operation-ids-required:
+    description: All operations must have operationId defined
+    message: "Operation is missing operationId"
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: operationId
+      function: defined
+
+  tdameritrade-operation-ids-camelcase:
+    description: operationId values should use camelCase
+    message: "operationId '{{value}}' should use camelCase"
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  tdameritrade-tags-defined:
+    description: All operations should be tagged for documentation grouping
+    message: "Operation is missing tags"
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: tags
+      function: defined
+
+  tdameritrade-security-defined:
+    description: Operations should reference OAuth2 security scheme
+    severity: warn
+    message: "Operation is missing security definition"
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      function: defined
+      field: security
+
+  tdameritrade-responses-success:
+    description: All operations should define a success response
+    message: "Operation is missing a 200 success response"
+    severity: error
+    given: "$.paths[*][get,put,patch].responses"
+    then:
+      field: "200"
+      function: defined
+
+  tdameritrade-error-401:
+    description: All operations should define an unauthorized (401) response
+    message: "Operation is missing 401 Unauthorized response"
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch].responses"
+    then:
+      field: "401"
+      function: defined
+
+  tdameritrade-summary-title-case:
+    description: Operation summaries should use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  tdameritrade-schemas-description:
+    description: Schema properties should have descriptions
+    message: "Schema property is missing description"
+    severity: info
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      field: description
+      function: defined
+
+  tdameritrade-deprecated-notice:
+    description: Deprecated APIs should have deprecation notice in description
+    message: "API with x-status:deprecated should mention deprecation in description"
+    severity: warn
+    given: "$[?(@['x-status'] == 'deprecated')].info.description"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(?i)(deprecated|discontinued|discontinued|successor|migrated)"

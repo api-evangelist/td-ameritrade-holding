@@ -1,0 +1,61 @@
+{
+  "name": "Order",
+  "description": "TD Ameritrade brokerage trade order",
+  "fields": [
+    {"name": "orderId", "type": "integer", "description": "Unique order identifier", "required": false},
+    {
+      "name": "orderType",
+      "type": "string",
+      "description": "Order type",
+      "required": true,
+      "enum": ["MARKET", "LIMIT", "STOP", "STOP_LIMIT", "TRAILING_STOP"]
+    },
+    {
+      "name": "session",
+      "type": "string",
+      "description": "Trading session",
+      "required": true,
+      "enum": ["NORMAL", "AM", "PM", "SEAMLESS"]
+    },
+    {"name": "price", "type": "number", "description": "Limit price (for LIMIT orders)", "required": false},
+    {
+      "name": "duration",
+      "type": "string",
+      "description": "Order duration",
+      "required": true,
+      "enum": ["DAY", "GOOD_TILL_CANCEL", "FILL_OR_KILL"]
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Order status",
+      "required": false,
+      "enum": ["QUEUED", "WORKING", "FILLED", "CANCELED", "REJECTED", "EXPIRED"]
+    },
+    {"name": "accountId", "type": "string", "description": "Account identifier", "required": false},
+    {"name": "enteredTime", "type": "string", "description": "Order entry timestamp", "required": false},
+    {
+      "name": "orderLegCollection",
+      "type": "array",
+      "description": "Order legs",
+      "required": true,
+      "items": {
+        "name": "OrderLeg",
+        "type": "object",
+        "fields": [
+          {"name": "instruction", "type": "string", "description": "Buy/sell instruction"},
+          {"name": "quantity", "type": "number", "description": "Number of shares/contracts"},
+          {
+            "name": "instrument",
+            "type": "object",
+            "description": "Security being traded",
+            "fields": [
+              {"name": "symbol", "type": "string", "description": "Ticker symbol"},
+              {"name": "assetType", "type": "string", "description": "Asset type (EQUITY, OPTION, etc.)"}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

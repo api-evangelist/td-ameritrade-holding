@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.tdameritrade.com/v1/accounts/{accountId}/orders",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "orderType": "LIMIT",
+      "session": "NORMAL",
+      "price": 150.00,
+      "duration": "DAY",
+      "orderStrategyType": "SINGLE",
+      "orderLegCollection": [
+        {
+          "instruction": "BUY",
+          "quantity": 10,
+          "instrument": {
+            "symbol": "AAPL",
+            "assetType": "EQUITY"
+          }
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  }
+}

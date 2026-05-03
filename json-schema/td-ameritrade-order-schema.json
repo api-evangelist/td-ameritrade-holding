@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/main/json-schema/td-ameritrade-order-schema.json",
+  "title": "TD Ameritrade Trade Order",
+  "description": "Schema for a trade order in the TD Ameritrade brokerage API (now deprecated - migrated to Charles Schwab).",
+  "type": "object",
+  "properties": {
+    "orderType": {
+      "type": "string",
+      "enum": ["MARKET", "LIMIT", "STOP", "STOP_LIMIT", "TRAILING_STOP", "MARKET_ON_CLOSE", "EXERCISE", "TRAILING_STOP_LIMIT", "NET_DEBIT", "NET_CREDIT", "NET_ZERO"],
+      "description": "Type of order"
+    },
+    "session": {
+      "type": "string",
+      "enum": ["NORMAL", "AM", "PM", "SEAMLESS"],
+      "description": "Trading session for the order"
+    },
+    "price": {
+      "type": "number",
+      "format": "double",
+      "description": "Limit price (required for LIMIT orders)"
+    },
+    "duration": {
+      "type": "string",
+      "enum": ["DAY", "GOOD_TILL_CANCEL", "FILL_OR_KILL"],
+      "description": "Order duration"
+    },
+    "orderStrategyType": {
+      "type": "string",
+      "enum": ["SINGLE", "OCO", "TRIGGER"],
+      "description": "Order strategy type"
+    },
+    "orderId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique order identifier"
+    },
+    "cancelable": {
+      "type": "boolean",
+      "description": "Whether the order can be cancelled"
+    },
+    "editable": {
+      "type": "boolean",
+      "description": "Whether the order can be edited"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["AWAITING_PARENT_ORDER", "AWAITING_CONDITION", "AWAITING_MANUAL_REVIEW", "ACCEPTED", "PENDING_ACTIVATION", "QUEUED", "WORKING", "REJECTED", "PENDING_CANCEL", "CANCELED", "FILLED", "EXPIRED"],
+      "description": "Current order status"
+    },
+    "enteredTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time the order was entered"
+    },
+    "closeTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time the order was closed"
+    },
+    "accountId": {
+      "type": "string",
+      "description": "Account identifier"
+    },
+    "orderLegCollection": {
+      "type": "array",
+      "description": "Collection of order legs",
+      "items": {
+        "$ref": "#/$defs/OrderLeg"
+      }
+    }
+  },
+  "$defs": {
+    "OrderLeg": {
+      "type": "object",
+      "description": "A single leg of a trade order",
+      "properties": {
+        "orderLegType": {
+          "type": "string",
+          "enum": ["EQUITY", "OPTION", "INDEX", "MUTUAL_FUND", "CASH_EQUIVALENT", "FIXED_INCOME", "CURRENCY"]
+        },
+        "legId": {
+          "type": "integer"
+        },
+        "instruction": {
+          "type": "string",
+          "enum": ["BUY", "SELL", "BUY_TO_COVER", "SELL_SHORT", "BUY_TO_OPEN", "BUY_TO_CLOSE", "SELL_TO_OPEN", "SELL_TO_CLOSE"]
+        },
+        "quantity": {
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "instrument": {
+          "type": "object",
+          "properties": {
+            "symbol": {
+              "type": "string"
+            },
+            "assetType": {
+              "type": "string",
+              "enum": ["EQUITY", "ETF", "FOREX", "FUTURE", "FUTURE_OPTION", "INDEX", "MUTUAL_FUND", "OPTION"]
+            },
+            "cusip": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

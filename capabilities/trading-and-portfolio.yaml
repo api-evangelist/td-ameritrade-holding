@@ -1,0 +1,338 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "TD Ameritrade Trading and Portfolio Management"
+  description: >-
+    Workflow capability for automated brokerage trading and portfolio management
+    using the TD Ameritrade API (historical - deprecated May 2024). Enables
+    programmatic trading, account monitoring, market data retrieval, and portfolio
+    analysis. The successor API is the Charles Schwab Trader API.
+  tags:
+    - TD Ameritrade
+    - Finance
+    - Trading
+    - Portfolio
+    - Market Data
+    - Brokerage
+    - Deprecated
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TDAMERITRADE_ACCESS_TOKEN: TDAMERITRADE_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - import: tdameritrade
+      location: ./shared/accounts-trading.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: tdameritrade-trading-api
+      description: "Unified REST API for TD Ameritrade trading and portfolio management."
+      resources:
+        - path: /v1/accounts
+          name: accounts
+          description: "Brokerage account information and balances"
+          operations:
+            - method: GET
+              name: get-accounts
+              description: "Retrieve all linked brokerage accounts with balances and positions"
+              call: "tdameritrade.get-accounts"
+              with:
+                fields: "rest.fields"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}
+          name: account-detail
+          description: "Single account details"
+          operations:
+            - method: GET
+              name: get-account
+              description: "Get account balances and positions for a specific account"
+              call: "tdameritrade.get-account"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}/orders
+          name: orders
+          description: "Order management for a brokerage account"
+          operations:
+            - method: GET
+              name: get-orders
+              description: "Retrieve orders for the account"
+              call: "tdameritrade.get-orders"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: place-order
+              description: "Place a new trade order"
+              call: "tdameritrade.place-order"
+              with:
+                accountId: "rest.accountId"
+                orderType: "rest.orderType"
+                session: "rest.session"
+                price: "rest.price"
+                duration: "rest.duration"
+                orderStrategyType: "rest.orderStrategyType"
+                orderLegCollection: "rest.orderLegCollection"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/quotes
+          name: quotes
+          description: "Real-time market quotes"
+          operations:
+            - method: GET
+              name: get-quotes
+              description: "Get quotes for one or more symbols"
+              call: "tdameritrade.get-quotes"
+              with:
+                symbol: "rest.symbol"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/price-history/{symbol}
+          name: price-history
+          description: "Historical price data"
+          operations:
+            - method: GET
+              name: get-price-history
+              description: "Get historical OHLCV price data for a symbol"
+              call: "tdameritrade.get-price-history"
+              with:
+                symbol: "rest.symbol"
+                periodType: "rest.periodType"
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/options
+          name: options
+          description: "Options chain data"
+          operations:
+            - method: GET
+              name: get-option-chain
+              description: "Get option chain for an optionable symbol"
+              call: "tdameritrade.get-option-chain"
+              with:
+                symbol: "rest.symbol"
+                contractType: "rest.contractType"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/instruments
+          name: instruments
+          description: "Security and instrument search"
+          operations:
+            - method: GET
+              name: search-instruments
+              description: "Search for securities by symbol or description"
+              call: "tdameritrade.search-instruments"
+              with:
+                symbol: "rest.symbol"
+                projection: "rest.projection"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}/transactions
+          name: transactions
+          description: "Account transaction history"
+          operations:
+            - method: GET
+              name: get-transactions
+              description: "Retrieve account transaction history"
+              call: "tdameritrade.get-transactions"
+              with:
+                accountId: "rest.accountId"
+                type: "rest.type"
+                startDate: "rest.startDate"
+                endDate: "rest.endDate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/accounts/{accountId}/watchlists
+          name: watchlists
+          description: "Security watchlists"
+          operations:
+            - method: GET
+              name: get-watchlists
+              description: "Get all watchlists for an account"
+              call: "tdameritrade.get-watchlists"
+              with:
+                accountId: "rest.accountId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: tdameritrade-trading-mcp
+      transport: http
+      description: "MCP server for AI-assisted brokerage trading and portfolio management."
+      tools:
+        - name: get-accounts
+          description: "Retrieve all linked TD Ameritrade brokerage accounts with balances and positions"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tdameritrade.get-accounts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-account
+          description: "Get detailed account information including balances and current positions"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tdameritrade.get-account"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-orders
+          description: "Retrieve all orders for a brokerage account with optional status filtering"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tdameritrade.get-orders"
+          with:
+            accountId: "tools.accountId"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: place-order
+          description: "Place a new trade order (market, limit, stop, etc.) for an account"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "tdameritrade.place-order"
+          with:
+            accountId: "tools.accountId"
+            orderType: "tools.orderType"
+            session: "tools.session"
+            price: "tools.price"
+            duration: "tools.duration"
+            orderStrategyType: "tools.orderStrategyType"
+            orderLegCollection: "tools.orderLegCollection"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: cancel-order
+          description: "Cancel a pending trade order"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "tdameritrade.cancel-order"
+          with:
+            accountId: "tools.accountId"
+            orderId: "tools.orderId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-quotes
+          description: "Get real-time market quotes for one or more security symbols"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "tdameritrade.get-quotes"
+          with:
+            symbol: "tools.symbol"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-price-history
+          description: "Retrieve historical OHLCV price data for a security symbol"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "tdameritrade.get-price-history"
+          with:
+            symbol: "tools.symbol"
+            periodType: "tools.periodType"
+            period: "tools.period"
+            frequencyType: "tools.frequencyType"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-option-chain
+          description: "Get option chain data for an optionable security symbol"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "tdameritrade.get-option-chain"
+          with:
+            symbol: "tools.symbol"
+            contractType: "tools.contractType"
+            strategy: "tools.strategy"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-instruments
+          description: "Search for securities by symbol or description to find trading instruments"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "tdameritrade.search-instruments"
+          with:
+            symbol: "tools.symbol"
+            projection: "tools.projection"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-transactions
+          description: "Retrieve account transaction history with optional date range and type filtering"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tdameritrade.get-transactions"
+          with:
+            accountId: "tools.accountId"
+            type: "tools.type"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-watchlists
+          description: "Get all security watchlists for a brokerage account"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tdameritrade.get-watchlists"
+          with:
+            accountId: "tools.accountId"
+          outputParameters:
+            - type: object
+              mapping: "$."
