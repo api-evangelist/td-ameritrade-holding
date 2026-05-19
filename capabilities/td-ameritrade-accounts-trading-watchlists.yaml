@@ -1,0 +1,264 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: TD Ameritrade Accounts and Trading API — Watchlists
+  description: 'TD Ameritrade Accounts and Trading API — Watchlists. 7 operations. Lead operation: Get Watchlists For Multiple
+    Accounts. Self-contained Naftiko capability covering one Td Ameritrade Holding business surface.'
+  tags:
+  - Td Ameritrade Holding
+  - Watchlists
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TD_AMERITRADE_HOLDING_API_KEY: TD_AMERITRADE_HOLDING_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: td-ameritrade-accounts-trading-watchlists
+    baseUri: https://api.tdameritrade.com/v1
+    description: TD Ameritrade Accounts and Trading API — Watchlists business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-watchlists
+      path: /accounts/watchlists
+      operations:
+      - name: getwatchlistsformultipleaccounts
+        method: GET
+        description: Get Watchlists For Multiple Accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-accountId-watchlists
+      path: /accounts/{accountId}/watchlists
+      operations:
+      - name: getwatchlistsforsingleaccount
+        method: GET
+        description: Get Watchlists For Single Account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createwatchlist
+        method: POST
+        description: Create Watchlist
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-accountId-watchlists-watchlistId
+      path: /accounts/{accountId}/watchlists/{watchlistId}
+      operations:
+      - name: getwatchlist
+        method: GET
+        description: Get Watchlist
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacewatchlist
+        method: PUT
+        description: Replace Watchlist
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatewatchlist
+        method: PATCH
+        description: Update Watchlist
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewatchlist
+        method: DELETE
+        description: Delete Watchlist
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.TD_AMERITRADE_HOLDING_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: td-ameritrade-accounts-trading-watchlists-rest
+    port: 8080
+    description: REST adapter for TD Ameritrade Accounts and Trading API — Watchlists. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/watchlists
+      name: accounts-watchlists
+      description: REST surface for accounts-watchlists.
+      operations:
+      - method: GET
+        name: getwatchlistsformultipleaccounts
+        description: Get Watchlists For Multiple Accounts
+        call: td-ameritrade-accounts-trading-watchlists.getwatchlistsformultipleaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{accountid}/watchlists
+      name: accounts-accountid-watchlists
+      description: REST surface for accounts-accountId-watchlists.
+      operations:
+      - method: GET
+        name: getwatchlistsforsingleaccount
+        description: Get Watchlists For Single Account
+        call: td-ameritrade-accounts-trading-watchlists.getwatchlistsforsingleaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwatchlist
+        description: Create Watchlist
+        call: td-ameritrade-accounts-trading-watchlists.createwatchlist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{accountid}/watchlists/{watchlistid}
+      name: accounts-accountid-watchlists-watchlistid
+      description: REST surface for accounts-accountId-watchlists-watchlistId.
+      operations:
+      - method: GET
+        name: getwatchlist
+        description: Get Watchlist
+        call: td-ameritrade-accounts-trading-watchlists.getwatchlist
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacewatchlist
+        description: Replace Watchlist
+        call: td-ameritrade-accounts-trading-watchlists.replacewatchlist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatewatchlist
+        description: Update Watchlist
+        call: td-ameritrade-accounts-trading-watchlists.updatewatchlist
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewatchlist
+        description: Delete Watchlist
+        call: td-ameritrade-accounts-trading-watchlists.deletewatchlist
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: td-ameritrade-accounts-trading-watchlists-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for TD Ameritrade Accounts and Trading API — Watchlists. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-watchlists-multiple-accounts
+      description: Get Watchlists For Multiple Accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: td-ameritrade-accounts-trading-watchlists.getwatchlistsformultipleaccounts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-watchlists-single-account
+      description: Get Watchlists For Single Account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: td-ameritrade-accounts-trading-watchlists.getwatchlistsforsingleaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-watchlist
+      description: Create Watchlist
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: td-ameritrade-accounts-trading-watchlists.createwatchlist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-watchlist
+      description: Get Watchlist
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: td-ameritrade-accounts-trading-watchlists.getwatchlist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replace-watchlist
+      description: Replace Watchlist
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: td-ameritrade-accounts-trading-watchlists.replacewatchlist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-watchlist
+      description: Update Watchlist
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: td-ameritrade-accounts-trading-watchlists.updatewatchlist
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-watchlist
+      description: Delete Watchlist
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: td-ameritrade-accounts-trading-watchlists.deletewatchlist
+      outputParameters:
+      - type: object
+        mapping: $.
