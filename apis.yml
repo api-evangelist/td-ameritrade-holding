@@ -1,9 +1,11 @@
 aid: td-ameritrade-holding
 name: TD Ameritrade Holding
-description: TD Ameritrade Holding Corporation was a brokerage firm that provided online brokerage and related services for
-  individual investors. The company was acquired by Charles Schwab in 2020 and the TD Ameritrade platform was fully migrated
-  to Charles Schwab in May 2024. TD Ameritrade offered a developer API for programmatic access to trading, account management,
-  market data, and order management capabilities. The successor API is now the Charles Schwab Trader API at developer.schwab.com.
+description: >-
+  TD Ameritrade Holding Corporation was a brokerage firm that provided online brokerage and related services for
+  individual investors. The company was acquired by Charles Schwab in 2020 and the TD Ameritrade platform was fully
+  migrated to Charles Schwab in May 2024. TD Ameritrade offered a developer API for programmatic access to trading,
+  account management, market data, and order management capabilities. The successor API is now the Charles Schwab Trader
+  API at developer.schwab.com.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -16,6 +18,7 @@ tags:
   - Investment
   - Charles Schwab
   - Deprecated
+  - Fortune 1000
 created: '2026-03-24'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/apis.yml
@@ -23,43 +26,28 @@ specificationVersion: '0.19'
 apis:
   - aid: td-ameritrade-holding:accounts-and-trading
     name: TD Ameritrade Accounts and Trading API
-    description: The TD Ameritrade Accounts and Trading API provided programmatic access to account information, order management,
-      watchlists, market data, and trading operations. Supported OAuth 2.0 authentication. Deprecated following the Charles
-      Schwab acquisition with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com.
+    description: >-
+      The TD Ameritrade Accounts and Trading API provided programmatic access to account information, order management,
+      watchlists, market data, and trading operations. Supported OAuth 2.0 authentication. Deprecated following the
+      Charles Schwab acquisition with full migration completed in May 2024. The successor API is the Charles Schwab
+      Trader API at developer.schwab.com.
     humanURL: https://developer.tdameritrade.com/
     baseURL: https://api.tdameritrade.com/v1
     tags:
-    - Accounts
-    - Trading
-    - Orders
-    - Market Data
-    - Watchlists
+      - Accounts
+      - Trading
+      - Orders
+      - Market Data
+      - Watchlists
     properties:
-    - type: Documentation
-      url: https://developer.tdameritrade.com/
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/openapi/td-ameritrade-accounts-trading-openapi.yml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-accounts.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-instruments.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-market-data.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-options.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-orders.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-saved-orders.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-transactions.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-user-management.yaml
-    - type: NaftikoCapability
-      url: capabilities/td-ameritrade-accounts-trading-watchlists.yaml
+      - type: Documentation
+        url: https://developer.tdameritrade.com/
+      - type: OpenAPI
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/openapi/td-ameritrade-accounts-trading-openapi.yml
     contact:
-    - FN: Charles Schwab (Successor)
-      url: https://developer.schwab.com
+      - FN: Charles Schwab (Successor)
+        url: https://developer.schwab.com
 common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/td-ameritrade
@@ -75,22 +63,24 @@ common:
     url: https://developer.schwab.com
   - type: OpenAPI
     name: TD Ameritrade Accounts and Trading OpenAPI Specification
-    url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/openapi/td-ameritrade-accounts-trading-openapi.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/openapi/td-ameritrade-accounts-trading-openapi.yml
   - type: Vocabulary
     name: TD Ameritrade Vocabulary
-    url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/vocabulary/td-ameritrade-vocabulary.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/vocabulary/td-ameritrade-vocabulary.yml
   - type: JSONSchema
     name: Order Schema
-    url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/json-schema/td-ameritrade-order-schema.json
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/json-schema/td-ameritrade-order-schema.json
   - type: JSONLDContext
     name: TD Ameritrade JSON-LD Context
-    url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/json-ld/td-ameritrade-context.jsonld
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/json-ld/td-ameritrade-context.jsonld
   - type: SpectralRules
     name: TD Ameritrade Spectral Rules
-    url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/rules/td-ameritrade-rules.yml
-  - type: NaftikoCapabilities
-    name: TD Ameritrade Trading and Portfolio Capability
-    url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/capabilities/trading-and-portfolio.yaml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/rules/td-ameritrade-rules.yml
   - type: Authentication
     name: OAuth 2.0
     description: TD Ameritrade API used OAuth 2.0 token-based authentication.
