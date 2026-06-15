@@ -1,0 +1,1002 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD Ameritrade Accounts and Trading API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tdameritrade.com/auth",
+      "accessTokenUrl": "https://api.tdameritrade.com/v1/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of optional fields to include (positions, orders)"
+              }
+            ]
+          },
+          "docs": "Retrieve account data including balances, positions, and orders for all linked accounts."
+        },
+        {
+          "info": {
+            "name": "Get Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of optional fields to include (positions, orders)"
+              }
+            ]
+          },
+          "docs": "Retrieve account balances, positions, and orders for a specific account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Orders By Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/orders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of orders to return"
+              },
+              {
+                "name": "fromEnteredTime",
+                "value": "",
+                "type": "query",
+                "description": "Start date/time filter (yyyy-MM-dd format)"
+              },
+              {
+                "name": "toEnteredTime",
+                "value": "",
+                "type": "query",
+                "description": "End date/time filter (yyyy-MM-dd format)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by order status"
+              }
+            ]
+          },
+          "docs": "Retrieve all orders for a specific account with optional filtering by date range and status."
+        },
+        {
+          "info": {
+            "name": "Place Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/orders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Place a new order for a specific account."
+        },
+        {
+          "info": {
+            "name": "Get Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/orders/:orderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique order identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific order by its order ID."
+        },
+        {
+          "info": {
+            "name": "Replace Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/orders/:orderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace an existing order with a new order specification."
+        },
+        {
+          "info": {
+            "name": "Cancel Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/orders/:orderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique order identifier"
+              }
+            ]
+          },
+          "docs": "Cancel a specific pending order."
+        },
+        {
+          "info": {
+            "name": "Get All Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/orders",
+            "params": [
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of orders to return"
+              },
+              {
+                "name": "fromEnteredTime",
+                "value": "",
+                "type": "query",
+                "description": "Start date filter (yyyy-MM-dd)"
+              },
+              {
+                "name": "toEnteredTime",
+                "value": "",
+                "type": "query",
+                "description": "End date filter (yyyy-MM-dd)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by order status"
+              }
+            ]
+          },
+          "docs": "Retrieve orders for all linked accounts with optional filtering."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Saved Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Saved Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/savedorders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all saved orders for a specific account."
+        },
+        {
+          "info": {
+            "name": "Create Saved Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/savedorders",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save an order template for future use."
+        },
+        {
+          "info": {
+            "name": "Get Saved Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/savedorders/:savedOrderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "savedOrderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the saved order"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific saved order by its ID."
+        },
+        {
+          "info": {
+            "name": "Replace Saved Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/savedorders/:savedOrderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "savedOrderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing saved order with new specifications."
+        },
+        {
+          "info": {
+            "name": "Delete Saved Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/savedorders/:savedOrderId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "savedOrderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a saved order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:symbol/quotes",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Security symbol (e.g., AAPL, SPY)"
+              }
+            ]
+          },
+          "docs": "Get real-time quote data for a single security symbol."
+        },
+        {
+          "info": {
+            "name": "Get Quotes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/quotes",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of symbols"
+              }
+            ]
+          },
+          "docs": "Get real-time quote data for multiple security symbols."
+        },
+        {
+          "info": {
+            "name": "Get Price History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:symbol/pricehistory",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Security symbol"
+              },
+              {
+                "name": "periodType",
+                "value": "",
+                "type": "query",
+                "description": "Type of period to show (day, month, year, ytd)"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Number of periods to show"
+              },
+              {
+                "name": "frequencyType",
+                "value": "",
+                "type": "query",
+                "description": "Type of frequency (minute, daily, weekly, monthly)"
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Frequency of data points"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in milliseconds since epoch"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in milliseconds since epoch"
+              }
+            ]
+          },
+          "docs": "Get historical price data (OHLCV) for a security symbol."
+        },
+        {
+          "info": {
+            "name": "Get Hours For Multiple Markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/hours",
+            "params": [
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of markets (EQUITY, OPTION, FUTURE, BOND, FOREX)"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date for which to retrieve market hours (yyyy-MM-dd)"
+              }
+            ]
+          },
+          "docs": "Retrieve market hours for multiple markets on a specified date."
+        },
+        {
+          "info": {
+            "name": "Get Hours For Single Market",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:market/hours",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "path",
+                "description": "Market identifier"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date for which to retrieve market hours (yyyy-MM-dd)"
+              }
+            ]
+          },
+          "docs": "Retrieve market hours for a specific market on a specified date."
+        },
+        {
+          "info": {
+            "name": "Get Market Movers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:index/movers",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "Market index symbol"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Direction of movement to filter"
+              },
+              {
+                "name": "change",
+                "value": "",
+                "type": "query",
+                "description": "Type of change to measure"
+              }
+            ]
+          },
+          "docs": "Get the top 10 movers (up or down) by value or percentage for a market index."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Options",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Option Chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/chains",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Optionable security symbol"
+              },
+              {
+                "name": "contractType",
+                "value": "",
+                "type": "query",
+                "description": "Type of contracts to return"
+              },
+              {
+                "name": "strikeCount",
+                "value": "",
+                "type": "query",
+                "description": "Number of strikes above and below the at-the-money price"
+              },
+              {
+                "name": "includeQuotes",
+                "value": "",
+                "type": "query",
+                "description": "Include quotes for options in the option chain"
+              },
+              {
+                "name": "strategy",
+                "value": "",
+                "type": "query",
+                "description": "Passing a value returns a strategy chain"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Only return expirations after this date (yyyy-MM-dd)"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Only return expirations before this date (yyyy-MM-dd)"
+              }
+            ]
+          },
+          "docs": "Get option chain data for an optionable symbol."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Instruments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/instruments",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Value to pass for the symbol (supports regex for FUNDAMENTAL projection)"
+              },
+              {
+                "name": "projection",
+                "value": "",
+                "type": "query",
+                "description": "Type of search (symbol-search, symbol-regex, desc-search, desc-regex, fundamental)"
+              }
+            ]
+          },
+          "docs": "Search for or retrieve instrument data including fundamental data by symbol or description."
+        },
+        {
+          "info": {
+            "name": "Get Instrument",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/instruments/:cusip",
+            "params": [
+              {
+                "name": "cusip",
+                "value": "",
+                "type": "path",
+                "description": "CUSIP identifier for the instrument"
+              }
+            ]
+          },
+          "docs": "Get details for a specific instrument by CUSIP identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/transactions",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Only retrieve transactions of specific type"
+              },
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Only retrieve transactions for a specific symbol"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date filter (yyyy-MM-dd)"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date filter (yyyy-MM-dd)"
+              }
+            ]
+          },
+          "docs": "Retrieve transaction history for a specific account with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Get Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/transactions/:transactionId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique transaction identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific transaction for an account by its transaction ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Watchlists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Watchlists For Single Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all watchlists for a specific account."
+        },
+        {
+          "info": {
+            "name": "Create Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new watchlist for a specific account."
+        },
+        {
+          "info": {
+            "name": "Get Watchlists For Multiple Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/watchlists"
+          },
+          "docs": "Retrieve all watchlists across all linked accounts."
+        },
+        {
+          "info": {
+            "name": "Get Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific watchlist by its ID."
+        },
+        {
+          "info": {
+            "name": "Replace Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace an existing watchlist entirely with a new specification."
+        },
+        {
+          "info": {
+            "name": "Update Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update an existing watchlist (add/remove instruments)."
+        },
+        {
+          "info": {
+            "name": "Delete Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ]
+          },
+          "docs": "Delete a specific watchlist."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/preferences",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ]
+          },
+          "docs": "Get account preferences for a specific account."
+        },
+        {
+          "info": {
+            "name": "Update Preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/preferences",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update account preferences for a specific account."
+        },
+        {
+          "info": {
+            "name": "Get User Principals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/userprincipals",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of additional fields to include"
+              }
+            ]
+          },
+          "docs": "Retrieve user principal details including linked accounts and preferences."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
