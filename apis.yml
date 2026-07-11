@@ -49,6 +49,10 @@ apis:
       - FN: Charles Schwab (Successor)
         url: https://developer.schwab.com
 common:
+  - type: Authentication
+    url: authentication/td-ameritrade-holding-authentication.yml
+  - type: OAuthScopes
+    url: scopes/td-ameritrade-holding-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/td-ameritrade
   - type: Website

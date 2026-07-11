@@ -1,0 +1,30 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/td-ameritrade-accounts-trading-openapi.yml
+schemes:
+- name: OAuth2
+  source: openapi/td-ameritrade-accounts-trading-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.tdameritrade.com/auth
+    tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+  description: TD Ameritrade uses OAuth 2.0 token-based authentication
+scopes:
+- scope: AccountAccess
+  description: Access account information
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/td-ameritrade-accounts-trading-openapi.yml
+- scope: MoveMoney
+  description: Transfer funds between accounts
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/td-ameritrade-accounts-trading-openapi.yml
+- scope: PlaceTrades
+  description: Place trades on behalf of the user
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/td-ameritrade-accounts-trading-openapi.yml
