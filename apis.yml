@@ -49,6 +49,8 @@ apis:
       - FN: Charles Schwab (Successor)
         url: https://developer.schwab.com
 common:
+  - type: DomainSecurity
+    url: security/td-ameritrade-holding-domain-security.yml
   - type: Authentication
     url: authentication/td-ameritrade-holding-authentication.yml
   - type: OAuthScopes
