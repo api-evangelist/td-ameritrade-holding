@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts User Management API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: User Management
+  description: User preferences and principal data
+paths:
+  /accounts/{accountId}/preferences:
+    get:
+      operationId: getPreferences
+      summary: Get Preferences
+      description: Get account preferences for a specific account.
+      tags:
+      - User Management
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Account preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preferences'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updatePreferences
+      summary: Update Preferences
+      description: Update account preferences for a specific account.
+      tags:
+      - User Management
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preferences'
+      responses:
+        '200':
+          description: Preferences updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /userprincipals:
+    get:
+      operationId: getUserPrincipals
+      summary: Get User Principals
+      description: Retrieve user principal details including linked accounts and preferences.
+      tags:
+      - User Management
+      parameters:
+      - name: fields
+        in: query
+        description: Comma-separated list of additional fields to include
+        schema:
+          type: string
+          example: streamerSubscriptionKeys,streamerConnectionInfo
+      responses:
+        '200':
+          description: User principal details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPrincipal'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    UserPrincipal:
+      type: object
+      description: User principal information including linked accounts
+      properties:
+        userId:
+          type: string
+        userCdDomainId:
+          type: string
+        primaryAccountId:
+          type: string
+        lastLoginTime:
+          type: string
+          format: date-time
+        tokenExpirationTime:
+          type: string
+          format: date-time
+        loginTime:
+          type: string
+          format: date-time
+        accessLevel:
+          type: string
+        stalePassword:
+          type: boolean
+        professionalStatus:
+          type: string
+        exchange:
+          type: string
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              accountId:
+                type: string
+              displayName:
+                type: string
+              accountCdDomainId:
+                type: string
+              company:
+                type: string
+              segment:
+                type: string
+              surrogateIds:
+                type: object
+              preferences:
+                $ref: '#/components/schemas/Preferences'
+              acl:
+                type: string
+              authorizations:
+                type: object
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    Preferences:
+      type: object
+      description: Account preferences settings
+      properties:
+        expressTrading:
+          type: boolean
+        directOptionsRouting:
+          type: boolean
+        directEquityRouting:
+          type: boolean
+        defaultEquityOrderLegInstruction:
+          type: string
+        defaultEquityOrderType:
+          type: string
+        defaultEquityOrderPriceLinkType:
+          type: string
+        defaultEquityOrderDuration:
+          type: string
+        defaultEquityOrderMarketSession:
+          type: string
+        defaultEquityQuantity:
+          type: integer
+        mutualFundTaxLotMethod:
+          type: string
+        optionTaxLotMethod:
+          type: string
+        equityTaxLotMethod:
+          type: string
+        defaultAdvancedToolLaunch:
+          type: string
+        authTokenTimeout:
+          type: string
+  responses:
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

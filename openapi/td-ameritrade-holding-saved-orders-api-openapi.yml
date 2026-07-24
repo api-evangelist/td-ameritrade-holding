@@ -1,0 +1,346 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts Saved Orders API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Saved Orders
+  description: Saved order management
+paths:
+  /accounts/{accountId}/savedorders:
+    get:
+      operationId: getSavedOrdersByPath
+      summary: Get Saved Orders
+      description: Retrieve all saved orders for a specific account.
+      tags:
+      - Saved Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of saved orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSavedOrder
+      summary: Create Saved Order
+      description: Save an order template for future use.
+      tags:
+      - Saved Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Saved order created
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/savedorders/{savedOrderId}:
+    get:
+      operationId: getSavedOrder
+      summary: Get Saved Order
+      description: Retrieve a specific saved order by its ID.
+      tags:
+      - Saved Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - name: savedOrderId
+        in: path
+        required: true
+        description: Unique identifier of the saved order
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Saved order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceSavedOrder
+      summary: Replace Saved Order
+      description: Update an existing saved order with new specifications.
+      tags:
+      - Saved Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - name: savedOrderId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Saved order updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteSavedOrder
+      summary: Delete Saved Order
+      description: Remove a saved order.
+      tags:
+      - Saved Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - name: savedOrderId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Saved order deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Order:
+      type: object
+      description: A trade order
+      properties:
+        session:
+          type: string
+          enum:
+          - NORMAL
+          - AM
+          - PM
+          - SEAMLESS
+        duration:
+          type: string
+          enum:
+          - DAY
+          - GOOD_TILL_CANCEL
+          - FILL_OR_KILL
+        orderType:
+          type: string
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          - STOP_LIMIT
+          - TRAILING_STOP
+          - MARKET_ON_CLOSE
+          - EXERCISE
+          - TRAILING_STOP_LIMIT
+          - NET_DEBIT
+          - NET_CREDIT
+          - NET_ZERO
+        cancelTime:
+          type: object
+        complexOrderStrategyType:
+          type: string
+        quantity:
+          type: number
+          format: double
+        filledQuantity:
+          type: number
+          format: double
+        remainingQuantity:
+          type: number
+          format: double
+        requestedDestination:
+          type: string
+        destinationLinkName:
+          type: string
+        price:
+          type: number
+          format: double
+        orderLegCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLeg'
+        orderStrategyType:
+          type: string
+          enum:
+          - SINGLE
+          - OCO
+          - TRIGGER
+        orderId:
+          type: integer
+          format: int64
+        cancelable:
+          type: boolean
+        editable:
+          type: boolean
+        status:
+          type: string
+        enteredTime:
+          type: string
+          format: date-time
+        closeTime:
+          type: string
+          format: date-time
+        accountId:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    OrderRequest:
+      type: object
+      description: Order placement request
+      required:
+      - orderType
+      - session
+      - duration
+      - orderStrategyType
+      - orderLegCollection
+      properties:
+        orderType:
+          type: string
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          - STOP_LIMIT
+        session:
+          type: string
+          enum:
+          - NORMAL
+          - AM
+          - PM
+          - SEAMLESS
+        price:
+          type: number
+          format: double
+          description: Limit price (required for LIMIT orders)
+        duration:
+          type: string
+          enum:
+          - DAY
+          - GOOD_TILL_CANCEL
+          - FILL_OR_KILL
+        orderStrategyType:
+          type: string
+          enum:
+          - SINGLE
+          - OCO
+          - TRIGGER
+        orderLegCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLeg'
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+          - EQUITY
+          - ETF
+          - FOREX
+          - FUTURE
+          - FUTURE_OPTION
+          - INDEX
+          - INDICATOR
+          - MUTUAL_FUND
+          - OPTION
+          - UNKNOWN
+    OrderLeg:
+      type: object
+      properties:
+        orderLegType:
+          type: string
+          enum:
+          - EQUITY
+          - OPTION
+          - INDEX
+          - MUTUAL_FUND
+          - CASH_EQUIVALENT
+          - FIXED_INCOME
+          - CURRENCY
+        legId:
+          type: integer
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        instruction:
+          type: string
+          enum:
+          - BUY
+          - SELL
+          - BUY_TO_COVER
+          - SELL_SHORT
+          - BUY_TO_OPEN
+          - BUY_TO_CLOSE
+          - SELL_TO_OPEN
+          - SELL_TO_CLOSE
+          - EXCHANGE
+        positionEffect:
+          type: string
+          enum:
+          - OPENING
+          - CLOSING
+          - AUTOMATIC
+        quantity:
+          type: number
+          format: double
+  responses:
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

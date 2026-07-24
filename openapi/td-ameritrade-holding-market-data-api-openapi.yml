@@ -1,0 +1,430 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts Market Data API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Market Data
+  description: Quotes, price history, and market hours
+paths:
+  /marketdata/{symbol}/quotes:
+    get:
+      operationId: getQuote
+      summary: Get Quote
+      description: Get real-time quote data for a single security symbol.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: path
+        required: true
+        description: Security symbol (e.g., AAPL, SPY)
+        schema:
+          type: string
+          example: AAPL
+      responses:
+        '200':
+          description: Quote data for the symbol
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Quote'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/quotes:
+    get:
+      operationId: getQuotes
+      summary: Get Quotes
+      description: Get real-time quote data for multiple security symbols.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        description: Comma-separated list of symbols
+        schema:
+          type: string
+          example: AAPL,MSFT,GOOG
+      responses:
+        '200':
+          description: Quote data for all requested symbols
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Quote'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/{symbol}/pricehistory:
+    get:
+      operationId: getPriceHistory
+      summary: Get Price History
+      description: Get historical price data (OHLCV) for a security symbol.
+      tags:
+      - Market Data
+      parameters:
+      - name: symbol
+        in: path
+        required: true
+        description: Security symbol
+        schema:
+          type: string
+          example: AAPL
+      - name: periodType
+        in: query
+        description: Type of period to show (day, month, year, ytd)
+        schema:
+          type: string
+          enum:
+          - day
+          - month
+          - year
+          - ytd
+      - name: period
+        in: query
+        description: Number of periods to show
+        schema:
+          type: integer
+      - name: frequencyType
+        in: query
+        description: Type of frequency (minute, daily, weekly, monthly)
+        schema:
+          type: string
+          enum:
+          - minute
+          - daily
+          - weekly
+          - monthly
+      - name: frequency
+        in: query
+        description: Frequency of data points
+        schema:
+          type: integer
+      - name: startDate
+        in: query
+        description: Start date in milliseconds since epoch
+        schema:
+          type: integer
+          format: int64
+      - name: endDate
+        in: query
+        description: End date in milliseconds since epoch
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Historical price data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceHistory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/hours:
+    get:
+      operationId: getHoursForMultipleMarkets
+      summary: Get Hours For Multiple Markets
+      description: Retrieve market hours for multiple markets on a specified date.
+      tags:
+      - Market Data
+      parameters:
+      - name: markets
+        in: query
+        required: true
+        description: Comma-separated list of markets (EQUITY, OPTION, FUTURE, BOND, FOREX)
+        schema:
+          type: string
+          example: EQUITY,OPTION
+      - name: date
+        in: query
+        description: Date for which to retrieve market hours (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Market hours for requested markets
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/{market}/hours:
+    get:
+      operationId: getHoursForSingleMarket
+      summary: Get Hours For Single Market
+      description: Retrieve market hours for a specific market on a specified date.
+      tags:
+      - Market Data
+      parameters:
+      - name: market
+        in: path
+        required: true
+        description: Market identifier
+        schema:
+          type: string
+          enum:
+          - EQUITY
+          - OPTION
+          - FUTURE
+          - BOND
+          - FOREX
+      - name: date
+        in: query
+        description: Date for which to retrieve market hours (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Market hours for the specified market
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/{index}/movers:
+    get:
+      operationId: getMovers
+      summary: Get Market Movers
+      description: Get the top 10 movers (up or down) by value or percentage for a market index.
+      tags:
+      - Market Data
+      parameters:
+      - name: index
+        in: path
+        required: true
+        description: Market index symbol
+        schema:
+          type: string
+          enum:
+          - $DJI
+          - $COMPX
+          - $SPX.X
+      - name: direction
+        in: query
+        description: Direction of movement to filter
+        schema:
+          type: string
+          enum:
+          - up
+          - down
+      - name: change
+        in: query
+        description: Type of change to measure
+        schema:
+          type: string
+          enum:
+          - value
+          - percent
+      responses:
+        '200':
+          description: Top movers for the index
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mover'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Mover:
+      type: object
+      description: A market mover (top gainer or loser)
+      properties:
+        change:
+          type: number
+          format: double
+        description:
+          type: string
+        direction:
+          type: string
+          enum:
+          - up
+          - down
+        last:
+          type: number
+          format: double
+        symbol:
+          type: string
+        totalVolume:
+          type: integer
+          format: int64
+    Quote:
+      type: object
+      description: Market quote data for a security
+      properties:
+        assetType:
+          type: string
+        assetMainType:
+          type: string
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        bidPrice:
+          type: number
+          format: double
+        bidSize:
+          type: integer
+        bidId:
+          type: string
+        askPrice:
+          type: number
+          format: double
+        askSize:
+          type: integer
+        askId:
+          type: string
+        lastPrice:
+          type: number
+          format: double
+        lastSize:
+          type: integer
+        lastId:
+          type: string
+        openPrice:
+          type: number
+          format: double
+        highPrice:
+          type: number
+          format: double
+        lowPrice:
+          type: number
+          format: double
+        closePrice:
+          type: number
+          format: double
+        netChange:
+          type: number
+          format: double
+        totalVolume:
+          type: integer
+          format: int64
+        tradeTimeInLong:
+          type: integer
+          format: int64
+        quoteTimeInLong:
+          type: integer
+          format: int64
+        mark:
+          type: number
+          format: double
+        exchange:
+          type: string
+        exchangeName:
+          type: string
+        volatility:
+          type: number
+          format: double
+        digits:
+          type: integer
+        52WkHigh:
+          type: number
+          format: double
+        52WkLow:
+          type: number
+          format: double
+        peRatio:
+          type: number
+          format: double
+        divAmount:
+          type: number
+          format: double
+        divYield:
+          type: number
+          format: double
+        divDate:
+          type: string
+        securityStatus:
+          type: string
+        regularMarketLastPrice:
+          type: number
+          format: double
+        regularMarketLastSize:
+          type: integer
+        regularMarketNetChange:
+          type: number
+          format: double
+        regularMarketTradeTimeInLong:
+          type: integer
+          format: int64
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    PriceHistory:
+      type: object
+      description: Historical price data for a security
+      properties:
+        candles:
+          type: array
+          items:
+            type: object
+            properties:
+              open:
+                type: number
+                format: double
+              high:
+                type: number
+                format: double
+              low:
+                type: number
+                format: double
+              close:
+                type: number
+                format: double
+              volume:
+                type: integer
+                format: int64
+              datetime:
+                type: integer
+                format: int64
+        symbol:
+          type: string
+        empty:
+          type: boolean
+  responses:
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

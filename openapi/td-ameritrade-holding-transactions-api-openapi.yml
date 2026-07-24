@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts Transactions API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Transactions
+  description: Account transaction history
+paths:
+  /accounts/{accountId}/transactions:
+    get:
+      operationId: getTransactions
+      summary: Get Transactions
+      description: Retrieve transaction history for a specific account with optional filtering.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - name: type
+        in: query
+        description: Only retrieve transactions of specific type
+        schema:
+          type: string
+          enum:
+          - ALL
+          - TRADE
+          - BUY_ONLY
+          - SELL_ONLY
+          - CASH_IN_OR_CASH_OUT
+          - CHECKING
+          - DIVIDEND
+          - INTEREST
+          - OTHER
+          - ADVISORY_FEES
+      - name: symbol
+        in: query
+        description: Only retrieve transactions for a specific symbol
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: Start date filter (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        description: End date filter (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: List of account transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/transactions/{transactionId}:
+    get:
+      operationId: getTransaction
+      summary: Get Transaction
+      description: Retrieve a specific transaction for an account by its transaction ID.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - name: transactionId
+        in: path
+        required: true
+        description: Unique transaction identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Transaction:
+      type: object
+      description: An account transaction record
+      properties:
+        type:
+          type: string
+        clearingReferenceNumber:
+          type: string
+        subAccount:
+          type: string
+        settlementDate:
+          type: string
+          format: date
+        orderId:
+          type: string
+        netAmount:
+          type: number
+          format: double
+        transactionDate:
+          type: string
+          format: date-time
+        orderDate:
+          type: string
+          format: date-time
+        transactionSubType:
+          type: string
+        transactionId:
+          type: integer
+          format: int64
+        cashBalanceEffectFlag:
+          type: boolean
+        description:
+          type: string
+        fees:
+          type: object
+        transactionItem:
+          type: object
+          properties:
+            accountId:
+              type: string
+            amount:
+              type: number
+              format: double
+            price:
+              type: number
+              format: double
+            cost:
+              type: number
+              format: double
+            instruction:
+              type: string
+            instrument:
+              $ref: '#/components/schemas/Instrument'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+          - EQUITY
+          - ETF
+          - FOREX
+          - FUTURE
+          - FUTURE_OPTION
+          - INDEX
+          - INDICATOR
+          - MUTUAL_FUND
+          - OPTION
+          - UNKNOWN
+  responses:
+    NotFound:
+      description: Not Found - Resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

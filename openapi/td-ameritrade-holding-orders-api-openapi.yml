@@ -1,0 +1,440 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts Orders API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Orders
+  description: Order placement, management, and retrieval
+paths:
+  /accounts/{accountId}/orders:
+    get:
+      operationId: getOrdersByPath
+      summary: Get Orders By Account
+      description: Retrieve all orders for a specific account with optional filtering by date range and status.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - name: maxResults
+        in: query
+        description: Maximum number of orders to return
+        schema:
+          type: integer
+      - name: fromEnteredTime
+        in: query
+        description: Start date/time filter (yyyy-MM-dd format)
+        schema:
+          type: string
+          format: date
+      - name: toEnteredTime
+        in: query
+        description: End date/time filter (yyyy-MM-dd format)
+        schema:
+          type: string
+          format: date
+      - name: status
+        in: query
+        description: Filter by order status
+        schema:
+          type: string
+          enum:
+          - AWAITING_PARENT_ORDER
+          - AWAITING_CONDITION
+          - AWAITING_MANUAL_REVIEW
+          - ACCEPTED
+          - AWAITING_UR_OUT
+          - PENDING_ACTIVATION
+          - QUEUED
+          - WORKING
+          - REJECTED
+          - PENDING_CANCEL
+          - CANCELED
+          - PENDING_REPLACE
+          - REPLACED
+          - FILLED
+          - EXPIRED
+      responses:
+        '200':
+          description: List of orders for the account
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: placeOrder
+      summary: Place Order
+      description: Place a new order for a specific account.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        description: Order details for placement
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Order placed successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/orders/{orderId}:
+    get:
+      operationId: getOrder
+      summary: Get Order
+      description: Retrieve a specific order by its order ID.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceOrder
+      summary: Replace Order
+      description: Replace an existing order with a new order specification.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Order replaced successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: cancelOrder
+      summary: Cancel Order
+      description: Cancel a specific pending order.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order cancelled successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /orders:
+    get:
+      operationId: getOrdersByQuery
+      summary: Get All Orders
+      description: Retrieve orders for all linked accounts with optional filtering.
+      tags:
+      - Orders
+      parameters:
+      - name: maxResults
+        in: query
+        description: Maximum number of orders to return
+        schema:
+          type: integer
+      - name: fromEnteredTime
+        in: query
+        description: Start date filter (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      - name: toEnteredTime
+        in: query
+        description: End date filter (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      - name: status
+        in: query
+        description: Filter by order status
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of all orders across linked accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Order:
+      type: object
+      description: A trade order
+      properties:
+        session:
+          type: string
+          enum:
+          - NORMAL
+          - AM
+          - PM
+          - SEAMLESS
+        duration:
+          type: string
+          enum:
+          - DAY
+          - GOOD_TILL_CANCEL
+          - FILL_OR_KILL
+        orderType:
+          type: string
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          - STOP_LIMIT
+          - TRAILING_STOP
+          - MARKET_ON_CLOSE
+          - EXERCISE
+          - TRAILING_STOP_LIMIT
+          - NET_DEBIT
+          - NET_CREDIT
+          - NET_ZERO
+        cancelTime:
+          type: object
+        complexOrderStrategyType:
+          type: string
+        quantity:
+          type: number
+          format: double
+        filledQuantity:
+          type: number
+          format: double
+        remainingQuantity:
+          type: number
+          format: double
+        requestedDestination:
+          type: string
+        destinationLinkName:
+          type: string
+        price:
+          type: number
+          format: double
+        orderLegCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLeg'
+        orderStrategyType:
+          type: string
+          enum:
+          - SINGLE
+          - OCO
+          - TRIGGER
+        orderId:
+          type: integer
+          format: int64
+        cancelable:
+          type: boolean
+        editable:
+          type: boolean
+        status:
+          type: string
+        enteredTime:
+          type: string
+          format: date-time
+        closeTime:
+          type: string
+          format: date-time
+        accountId:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    OrderRequest:
+      type: object
+      description: Order placement request
+      required:
+      - orderType
+      - session
+      - duration
+      - orderStrategyType
+      - orderLegCollection
+      properties:
+        orderType:
+          type: string
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          - STOP_LIMIT
+        session:
+          type: string
+          enum:
+          - NORMAL
+          - AM
+          - PM
+          - SEAMLESS
+        price:
+          type: number
+          format: double
+          description: Limit price (required for LIMIT orders)
+        duration:
+          type: string
+          enum:
+          - DAY
+          - GOOD_TILL_CANCEL
+          - FILL_OR_KILL
+        orderStrategyType:
+          type: string
+          enum:
+          - SINGLE
+          - OCO
+          - TRIGGER
+        orderLegCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLeg'
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+          - EQUITY
+          - ETF
+          - FOREX
+          - FUTURE
+          - FUTURE_OPTION
+          - INDEX
+          - INDICATOR
+          - MUTUAL_FUND
+          - OPTION
+          - UNKNOWN
+    OrderLeg:
+      type: object
+      properties:
+        orderLegType:
+          type: string
+          enum:
+          - EQUITY
+          - OPTION
+          - INDEX
+          - MUTUAL_FUND
+          - CASH_EQUIVALENT
+          - FIXED_INCOME
+          - CURRENCY
+        legId:
+          type: integer
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        instruction:
+          type: string
+          enum:
+          - BUY
+          - SELL
+          - BUY_TO_COVER
+          - SELL_SHORT
+          - BUY_TO_OPEN
+          - BUY_TO_CLOSE
+          - SELL_TO_OPEN
+          - SELL_TO_CLOSE
+          - EXCHANGE
+        positionEffect:
+          type: string
+          enum:
+          - OPENING
+          - CLOSING
+          - AUTOMATIC
+        quantity:
+          type: number
+          format: double
+  responses:
+    NotFound:
+      description: Not Found - Resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad Request - Invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      description: Unique order identifier
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

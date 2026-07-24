@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Accounts
+  description: Account information, balances, and positions
+paths:
+  /accounts:
+    get:
+      operationId: getAccounts
+      summary: Get All Accounts
+      description: Retrieve account data including balances, positions, and orders for all linked accounts.
+      tags:
+      - Accounts
+      parameters:
+      - name: fields
+        in: query
+        description: Comma-separated list of optional fields to include (positions, orders)
+        schema:
+          type: string
+          example: positions,orders
+      responses:
+        '200':
+          description: List of all linked accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get Account
+      description: Retrieve account balances, positions, and orders for a specific account.
+      tags:
+      - Accounts
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - name: fields
+        in: query
+        description: Comma-separated list of optional fields to include (positions, orders)
+        schema:
+          type: string
+          example: positions
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Not Found - Resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+          - EQUITY
+          - ETF
+          - FOREX
+          - FUTURE
+          - FUTURE_OPTION
+          - INDEX
+          - INDICATOR
+          - MUTUAL_FUND
+          - OPTION
+          - UNKNOWN
+    Position:
+      type: object
+      description: A security position held in an account
+      properties:
+        shortQuantity:
+          type: number
+          format: double
+        averagePrice:
+          type: number
+          format: double
+        currentValue:
+          type: number
+          format: double
+        longQuantity:
+          type: number
+          format: double
+        settledLongQuantity:
+          type: number
+          format: double
+        settledShortQuantity:
+          type: number
+          format: double
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+    Account:
+      type: object
+      description: Brokerage account information including balances and positions
+      properties:
+        securitiesAccount:
+          type: object
+          properties:
+            accountId:
+              type: string
+              description: Unique account identifier
+            type:
+              type: string
+              enum:
+              - CASH
+              - MARGIN
+              description: Account type
+            roundTrips:
+              type: integer
+              description: Number of day trades in the rolling 5-day period
+            isDayTrader:
+              type: boolean
+              description: Whether account is flagged as a pattern day trader
+            isClosingOnlyRestricted:
+              type: boolean
+            currentBalances:
+              type: object
+              description: Current account balances
+              properties:
+                availableFunds:
+                  type: number
+                  format: double
+                buyingPower:
+                  type: number
+                  format: double
+                liquidationValue:
+                  type: number
+                  format: double
+                cashBalance:
+                  type: number
+                  format: double
+            positions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Position'
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

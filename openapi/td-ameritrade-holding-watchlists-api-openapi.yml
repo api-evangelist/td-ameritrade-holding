@@ -1,0 +1,275 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts Watchlists API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Watchlists
+  description: Watchlist creation and management
+paths:
+  /accounts/{accountId}/watchlists:
+    get:
+      operationId: getWatchlistsForSingleAccount
+      summary: Get Watchlists For Single Account
+      description: Retrieve all watchlists for a specific account.
+      tags:
+      - Watchlists
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of watchlists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Watchlist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createWatchlist
+      summary: Create Watchlist
+      description: Create a new watchlist for a specific account.
+      tags:
+      - Watchlists
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        description: Watchlist definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WatchlistRequest'
+      responses:
+        '200':
+          description: Watchlist created
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/watchlists:
+    get:
+      operationId: getWatchlistsForMultipleAccounts
+      summary: Get Watchlists For Multiple Accounts
+      description: Retrieve all watchlists across all linked accounts.
+      tags:
+      - Watchlists
+      responses:
+        '200':
+          description: All watchlists across all accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Watchlist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/watchlists/{watchlistId}:
+    get:
+      operationId: getWatchlist
+      summary: Get Watchlist
+      description: Retrieve a specific watchlist by its ID.
+      tags:
+      - Watchlists
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/WatchlistId'
+      responses:
+        '200':
+          description: Watchlist details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Watchlist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceWatchlist
+      summary: Replace Watchlist
+      description: Replace an existing watchlist entirely with a new specification.
+      tags:
+      - Watchlists
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/WatchlistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WatchlistRequest'
+      responses:
+        '200':
+          description: Watchlist replaced
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateWatchlist
+      summary: Update Watchlist
+      description: Partially update an existing watchlist (add/remove instruments).
+      tags:
+      - Watchlists
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/WatchlistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WatchlistRequest'
+      responses:
+        '200':
+          description: Watchlist updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteWatchlist
+      summary: Delete Watchlist
+      description: Delete a specific watchlist.
+      tags:
+      - Watchlists
+      parameters:
+      - $ref: '#/components/parameters/AccountId'
+      - $ref: '#/components/parameters/WatchlistId'
+      responses:
+        '200':
+          description: Watchlist deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    WatchlistId:
+      name: watchlistId
+      in: path
+      required: true
+      description: Unique watchlist identifier
+      schema:
+        type: string
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    Watchlist:
+      type: object
+      description: A saved list of securities to watch
+      properties:
+        name:
+          type: string
+          description: Name of the watchlist
+        watchlistId:
+          type: string
+          description: Unique watchlist identifier
+        accountId:
+          type: string
+          description: Associated account ID
+        status:
+          type: string
+        watchlistItems:
+          type: array
+          items:
+            type: object
+            properties:
+              sequenceId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              averagePrice:
+                type: number
+                format: double
+              commission:
+                type: number
+                format: double
+              purchasedDate:
+                type: string
+              instrument:
+                $ref: '#/components/schemas/Instrument'
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+          - EQUITY
+          - ETF
+          - FOREX
+          - FUTURE
+          - FUTURE_OPTION
+          - INDEX
+          - INDICATOR
+          - MUTUAL_FUND
+          - OPTION
+          - UNKNOWN
+    WatchlistRequest:
+      type: object
+      required:
+      - name
+      - watchlistItems
+      properties:
+        name:
+          type: string
+          description: Watchlist name
+        watchlistItems:
+          type: array
+          items:
+            type: object
+            properties:
+              instrument:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                  assetType:
+                    type: string
+  responses:
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

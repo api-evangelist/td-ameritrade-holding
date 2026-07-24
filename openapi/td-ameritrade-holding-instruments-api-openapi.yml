@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts Instruments API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Instruments
+  description: Security and instrument search
+paths:
+  /instruments:
+    get:
+      operationId: searchInstruments
+      summary: Search Instruments
+      description: Search for or retrieve instrument data including fundamental data by symbol or description.
+      tags:
+      - Instruments
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        description: Value to pass for the symbol (supports regex for FUNDAMENTAL projection)
+        schema:
+          type: string
+          example: AAPL
+      - name: projection
+        in: query
+        required: true
+        description: Type of search (symbol-search, symbol-regex, desc-search, desc-regex, fundamental)
+        schema:
+          type: string
+          enum:
+          - symbol-search
+          - symbol-regex
+          - desc-search
+          - desc-regex
+          - fundamental
+      responses:
+        '200':
+          description: Instrument search results
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Instrument'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /instruments/{cusip}:
+    get:
+      operationId: getInstrument
+      summary: Get Instrument
+      description: Get details for a specific instrument by CUSIP identifier.
+      tags:
+      - Instruments
+      parameters:
+      - name: cusip
+        in: path
+        required: true
+        description: CUSIP identifier for the instrument
+        schema:
+          type: string
+          example: 037833100
+      responses:
+        '200':
+          description: Instrument details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instrument'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+          - EQUITY
+          - ETF
+          - FOREX
+          - FUTURE
+          - FUTURE_OPTION
+          - INDEX
+          - INDICATOR
+          - MUTUAL_FUND
+          - OPTION
+          - UNKNOWN
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+  responses:
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not Found - Resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts

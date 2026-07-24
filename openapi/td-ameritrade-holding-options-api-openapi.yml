@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade and Trading Accounts Options API
+  description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+- url: https://api.tdameritrade.com/v1
+  description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+- OAuth2: []
+tags:
+- name: Options
+  description: Options chains and derivatives
+paths:
+  /marketdata/chains:
+    get:
+      operationId: getOptionChain
+      summary: Get Option Chain
+      description: Get option chain data for an optionable symbol.
+      tags:
+      - Options
+      parameters:
+      - name: symbol
+        in: query
+        required: true
+        description: Optionable security symbol
+        schema:
+          type: string
+          example: AAPL
+      - name: contractType
+        in: query
+        description: Type of contracts to return
+        schema:
+          type: string
+          enum:
+          - CALL
+          - PUT
+          - ALL
+      - name: strikeCount
+        in: query
+        description: Number of strikes above and below the at-the-money price
+        schema:
+          type: integer
+      - name: includeQuotes
+        in: query
+        description: Include quotes for options in the option chain
+        schema:
+          type: boolean
+      - name: strategy
+        in: query
+        description: Passing a value returns a strategy chain
+        schema:
+          type: string
+          enum:
+          - SINGLE
+          - ANALYTICAL
+          - COVERED
+          - VERTICAL
+          - CALENDAR
+          - STRANGLE
+          - STRADDLE
+          - BUTTERFLY
+          - CONDOR
+          - DIAGONAL
+          - COLLAR
+          - ROLL
+      - name: fromDate
+        in: query
+        description: Only return expirations after this date (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      - name: toDate
+        in: query
+        description: Only return expirations before this date (yyyy-MM-dd)
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Option chain data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionChain'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    OptionChain:
+      type: object
+      description: Option chain data for an optionable security
+      properties:
+        symbol:
+          type: string
+        status:
+          type: string
+        underlying:
+          type: object
+        strategy:
+          type: string
+        interval:
+          type: number
+          format: double
+        isDelayed:
+          type: boolean
+        isIndex:
+          type: boolean
+        interestRate:
+          type: number
+          format: double
+        underlyingPrice:
+          type: number
+          format: double
+        volatility:
+          type: number
+          format: double
+        daysToExpiration:
+          type: number
+          format: double
+        numberOfContracts:
+          type: integer
+        callExpDateMap:
+          type: object
+          additionalProperties:
+            type: object
+        putExpDateMap:
+          type: object
+          additionalProperties:
+            type: object
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+  responses:
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts
