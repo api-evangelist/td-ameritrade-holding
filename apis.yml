@@ -7,9 +7,22 @@ description: >-
   account management, market data, and order management capabilities. The successor API is now the Charles Schwab Trader
   API at developer.schwab.com.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/td-ameritrade-holding.png
 tags:
   - Finance
   - Brokerage
@@ -24,30 +37,114 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: td-ameritrade-holding:accounts-and-trading
-    name: TD Ameritrade Accounts and Trading API
-    description: >-
-      The TD Ameritrade Accounts and Trading API provided programmatic access to account information, order management,
-      watchlists, market data, and trading operations. Supported OAuth 2.0 authentication. Deprecated following the
-      Charles Schwab acquisition with full migration completed in May 2024. The successor API is the Charles Schwab
-      Trader API at developer.schwab.com.
-    humanURL: https://developer.tdameritrade.com/
-    baseURL: https://api.tdameritrade.com/v1
-    tags:
-      - Accounts
-      - Trading
-      - Orders
-      - Market Data
-      - Watchlists
-    properties:
-      - type: Documentation
-        url: https://developer.tdameritrade.com/
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/td-ameritrade-holding/refs/heads/main/openapi/td-ameritrade-accounts-trading-openapi.yml
-    contact:
-      - FN: Charles Schwab (Successor)
-        url: https://developer.schwab.com
+- aid: td-ameritrade-holding:td-ameritrade-holding-accounts-api
+  name: TD Ameritrade Holding Accounts API
+  description: Account information, balances, and positions
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-instruments-api
+  name: TD Ameritrade Holding Instruments API
+  description: Security and instrument search
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Instruments
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-instruments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-market-data-api
+  name: TD Ameritrade Holding Market Data API
+  description: Quotes, price history, and market hours
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-market-data-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-options-api
+  name: TD Ameritrade Holding Options API
+  description: Options chains and derivatives
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Options
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-options-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-orders-api
+  name: TD Ameritrade Holding Orders API
+  description: Order placement, management, and retrieval
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-saved-orders-api
+  name: TD Ameritrade Holding Saved Orders API
+  description: Saved order management
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Saved Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-saved-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-transactions-api
+  name: TD Ameritrade Holding Transactions API
+  description: Account transaction history
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-user-management-api
+  name: TD Ameritrade Holding User Management API
+  description: User preferences and principal data
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - User Management
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-user-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
+- aid: td-ameritrade-holding:td-ameritrade-holding-watchlists-api
+  name: TD Ameritrade Holding Watchlists API
+  description: Watchlist creation and management
+  humanURL: https://developer.tdameritrade.com/
+  baseURL: https://api.tdameritrade.com/v1
+  tags:
+  - Watchlists
+  properties:
+  - type: OpenAPI
+    url: openapi/td-ameritrade-holding-watchlists-api-openapi.yml
+  - type: Documentation
+    url: https://developer.tdameritrade.com/
 common:
   - type: AgenticAccess
     url: agentic-access/td-ameritrade-holding-agentic-access.yml
