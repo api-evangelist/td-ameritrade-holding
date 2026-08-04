@@ -1,0 +1,1714 @@
+openapi: 3.0.3
+info:
+  title: TD Ameritrade Accounts and Trading API
+  description: >-
+    The TD Ameritrade Accounts and Trading API provided programmatic access to
+    brokerage account information, order management, market data, instruments,
+    watchlists, and trading operations. This API was discontinued following the
+    Charles Schwab acquisition of TD Ameritrade, with full migration completed
+    in May 2024. The successor API is the Charles Schwab Trader API at
+    developer.schwab.com. Documentation preserved for historical reference.
+  version: '1'
+  contact:
+    name: Charles Schwab (Successor)
+    url: https://developer.schwab.com
+  x-status: deprecated
+servers:
+  - url: https://api.tdameritrade.com/v1
+    description: TD Ameritrade API (Deprecated - Migrated to Charles Schwab)
+security:
+  - OAuth2: []
+tags:
+  - name: Accounts
+    description: Account information, balances, and positions
+  - name: Orders
+    description: Order placement, management, and retrieval
+  - name: Saved Orders
+    description: Saved order management
+  - name: Market Data
+    description: Quotes, price history, and market hours
+  - name: Instruments
+    description: Security and instrument search
+  - name: Options
+    description: Options chains and derivatives
+  - name: Watchlists
+    description: Watchlist creation and management
+  - name: Transactions
+    description: Account transaction history
+  - name: User Management
+    description: User preferences and principal data
+paths:
+  /accounts:
+    get:
+      operationId: getAccounts
+      summary: Get All Accounts
+      description: Retrieve account data including balances, positions, and orders for all linked accounts.
+      tags:
+        - Accounts
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated list of optional fields to include (positions, orders)
+          schema:
+            type: string
+            example: positions,orders
+      responses:
+        '200':
+          description: List of all linked accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get Account
+      description: Retrieve account balances, positions, and orders for a specific account.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - name: fields
+          in: query
+          description: Comma-separated list of optional fields to include (positions, orders)
+          schema:
+            type: string
+            example: positions
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/{accountId}/orders:
+    get:
+      operationId: getOrdersByPath
+      summary: Get Orders By Account
+      description: Retrieve all orders for a specific account with optional filtering by date range and status.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - name: maxResults
+          in: query
+          description: Maximum number of orders to return
+          schema:
+            type: integer
+        - name: fromEnteredTime
+          in: query
+          description: Start date/time filter (yyyy-MM-dd format)
+          schema:
+            type: string
+            format: date
+        - name: toEnteredTime
+          in: query
+          description: End date/time filter (yyyy-MM-dd format)
+          schema:
+            type: string
+            format: date
+        - name: status
+          in: query
+          description: Filter by order status
+          schema:
+            type: string
+            enum:
+              - AWAITING_PARENT_ORDER
+              - AWAITING_CONDITION
+              - AWAITING_MANUAL_REVIEW
+              - ACCEPTED
+              - AWAITING_UR_OUT
+              - PENDING_ACTIVATION
+              - QUEUED
+              - WORKING
+              - REJECTED
+              - PENDING_CANCEL
+              - CANCELED
+              - PENDING_REPLACE
+              - REPLACED
+              - FILLED
+              - EXPIRED
+      responses:
+        '200':
+          description: List of orders for the account
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: placeOrder
+      summary: Place Order
+      description: Place a new order for a specific account.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        description: Order details for placement
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Order placed successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/orders/{orderId}:
+    get:
+      operationId: getOrder
+      summary: Get Order
+      description: Retrieve a specific order by its order ID.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceOrder
+      summary: Replace Order
+      description: Replace an existing order with a new order specification.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Order replaced successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: cancelOrder
+      summary: Cancel Order
+      description: Cancel a specific pending order.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order cancelled successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /orders:
+    get:
+      operationId: getOrdersByQuery
+      summary: Get All Orders
+      description: Retrieve orders for all linked accounts with optional filtering.
+      tags:
+        - Orders
+      parameters:
+        - name: maxResults
+          in: query
+          description: Maximum number of orders to return
+          schema:
+            type: integer
+        - name: fromEnteredTime
+          in: query
+          description: Start date filter (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+        - name: toEnteredTime
+          in: query
+          description: End date filter (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+        - name: status
+          in: query
+          description: Filter by order status
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of all orders across linked accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/savedorders:
+    get:
+      operationId: getSavedOrdersByPath
+      summary: Get Saved Orders
+      description: Retrieve all saved orders for a specific account.
+      tags:
+        - Saved Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of saved orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSavedOrder
+      summary: Create Saved Order
+      description: Save an order template for future use.
+      tags:
+        - Saved Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Saved order created
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/savedorders/{savedOrderId}:
+    get:
+      operationId: getSavedOrder
+      summary: Get Saved Order
+      description: Retrieve a specific saved order by its ID.
+      tags:
+        - Saved Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - name: savedOrderId
+          in: path
+          required: true
+          description: Unique identifier of the saved order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Saved order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceSavedOrder
+      summary: Replace Saved Order
+      description: Update an existing saved order with new specifications.
+      tags:
+        - Saved Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - name: savedOrderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '200':
+          description: Saved order updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteSavedOrder
+      summary: Delete Saved Order
+      description: Remove a saved order.
+      tags:
+        - Saved Orders
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - name: savedOrderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Saved order deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/{symbol}/quotes:
+    get:
+      operationId: getQuote
+      summary: Get Quote
+      description: Get real-time quote data for a single security symbol.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          description: Security symbol (e.g., AAPL, SPY)
+          schema:
+            type: string
+            example: AAPL
+      responses:
+        '200':
+          description: Quote data for the symbol
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Quote'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/quotes:
+    get:
+      operationId: getQuotes
+      summary: Get Quotes
+      description: Get real-time quote data for multiple security symbols.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Comma-separated list of symbols
+          schema:
+            type: string
+            example: AAPL,MSFT,GOOG
+      responses:
+        '200':
+          description: Quote data for all requested symbols
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Quote'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/{symbol}/pricehistory:
+    get:
+      operationId: getPriceHistory
+      summary: Get Price History
+      description: Get historical price data (OHLCV) for a security symbol.
+      tags:
+        - Market Data
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          description: Security symbol
+          schema:
+            type: string
+            example: AAPL
+        - name: periodType
+          in: query
+          description: Type of period to show (day, month, year, ytd)
+          schema:
+            type: string
+            enum:
+              - day
+              - month
+              - year
+              - ytd
+        - name: period
+          in: query
+          description: Number of periods to show
+          schema:
+            type: integer
+        - name: frequencyType
+          in: query
+          description: Type of frequency (minute, daily, weekly, monthly)
+          schema:
+            type: string
+            enum:
+              - minute
+              - daily
+              - weekly
+              - monthly
+        - name: frequency
+          in: query
+          description: Frequency of data points
+          schema:
+            type: integer
+        - name: startDate
+          in: query
+          description: Start date in milliseconds since epoch
+          schema:
+            type: integer
+            format: int64
+        - name: endDate
+          in: query
+          description: End date in milliseconds since epoch
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Historical price data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceHistory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/chains:
+    get:
+      operationId: getOptionChain
+      summary: Get Option Chain
+      description: Get option chain data for an optionable symbol.
+      tags:
+        - Options
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Optionable security symbol
+          schema:
+            type: string
+            example: AAPL
+        - name: contractType
+          in: query
+          description: Type of contracts to return
+          schema:
+            type: string
+            enum:
+              - CALL
+              - PUT
+              - ALL
+        - name: strikeCount
+          in: query
+          description: Number of strikes above and below the at-the-money price
+          schema:
+            type: integer
+        - name: includeQuotes
+          in: query
+          description: Include quotes for options in the option chain
+          schema:
+            type: boolean
+        - name: strategy
+          in: query
+          description: Passing a value returns a strategy chain
+          schema:
+            type: string
+            enum:
+              - SINGLE
+              - ANALYTICAL
+              - COVERED
+              - VERTICAL
+              - CALENDAR
+              - STRANGLE
+              - STRADDLE
+              - BUTTERFLY
+              - CONDOR
+              - DIAGONAL
+              - COLLAR
+              - ROLL
+        - name: fromDate
+          in: query
+          description: Only return expirations after this date (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+        - name: toDate
+          in: query
+          description: Only return expirations before this date (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Option chain data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionChain'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/hours:
+    get:
+      operationId: getHoursForMultipleMarkets
+      summary: Get Hours For Multiple Markets
+      description: Retrieve market hours for multiple markets on a specified date.
+      tags:
+        - Market Data
+      parameters:
+        - name: markets
+          in: query
+          required: true
+          description: Comma-separated list of markets (EQUITY, OPTION, FUTURE, BOND, FOREX)
+          schema:
+            type: string
+            example: EQUITY,OPTION
+        - name: date
+          in: query
+          description: Date for which to retrieve market hours (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Market hours for requested markets
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/{market}/hours:
+    get:
+      operationId: getHoursForSingleMarket
+      summary: Get Hours For Single Market
+      description: Retrieve market hours for a specific market on a specified date.
+      tags:
+        - Market Data
+      parameters:
+        - name: market
+          in: path
+          required: true
+          description: Market identifier
+          schema:
+            type: string
+            enum:
+              - EQUITY
+              - OPTION
+              - FUTURE
+              - BOND
+              - FOREX
+        - name: date
+          in: query
+          description: Date for which to retrieve market hours (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Market hours for the specified market
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /marketdata/{index}/movers:
+    get:
+      operationId: getMovers
+      summary: Get Market Movers
+      description: Get the top 10 movers (up or down) by value or percentage for a market index.
+      tags:
+        - Market Data
+      parameters:
+        - name: index
+          in: path
+          required: true
+          description: Market index symbol
+          schema:
+            type: string
+            enum:
+              - $DJI
+              - $COMPX
+              - $SPX.X
+        - name: direction
+          in: query
+          description: Direction of movement to filter
+          schema:
+            type: string
+            enum:
+              - up
+              - down
+        - name: change
+          in: query
+          description: Type of change to measure
+          schema:
+            type: string
+            enum:
+              - value
+              - percent
+      responses:
+        '200':
+          description: Top movers for the index
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mover'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /instruments:
+    get:
+      operationId: searchInstruments
+      summary: Search Instruments
+      description: Search for or retrieve instrument data including fundamental data by symbol or description.
+      tags:
+        - Instruments
+      parameters:
+        - name: symbol
+          in: query
+          required: true
+          description: Value to pass for the symbol (supports regex for FUNDAMENTAL projection)
+          schema:
+            type: string
+            example: AAPL
+        - name: projection
+          in: query
+          required: true
+          description: Type of search (symbol-search, symbol-regex, desc-search, desc-regex, fundamental)
+          schema:
+            type: string
+            enum:
+              - symbol-search
+              - symbol-regex
+              - desc-search
+              - desc-regex
+              - fundamental
+      responses:
+        '200':
+          description: Instrument search results
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Instrument'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /instruments/{cusip}:
+    get:
+      operationId: getInstrument
+      summary: Get Instrument
+      description: Get details for a specific instrument by CUSIP identifier.
+      tags:
+        - Instruments
+      parameters:
+        - name: cusip
+          in: path
+          required: true
+          description: CUSIP identifier for the instrument
+          schema:
+            type: string
+            example: 037833100
+      responses:
+        '200':
+          description: Instrument details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instrument'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/{accountId}/transactions:
+    get:
+      operationId: getTransactions
+      summary: Get Transactions
+      description: Retrieve transaction history for a specific account with optional filtering.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - name: type
+          in: query
+          description: Only retrieve transactions of specific type
+          schema:
+            type: string
+            enum:
+              - ALL
+              - TRADE
+              - BUY_ONLY
+              - SELL_ONLY
+              - CASH_IN_OR_CASH_OUT
+              - CHECKING
+              - DIVIDEND
+              - INTEREST
+              - OTHER
+              - ADVISORY_FEES
+        - name: symbol
+          in: query
+          description: Only retrieve transactions for a specific symbol
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: Start date filter (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: End date filter (yyyy-MM-dd)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: List of account transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/transactions/{transactionId}:
+    get:
+      operationId: getTransaction
+      summary: Get Transaction
+      description: Retrieve a specific transaction for an account by its transaction ID.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - name: transactionId
+          in: path
+          required: true
+          description: Unique transaction identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/{accountId}/watchlists:
+    get:
+      operationId: getWatchlistsForSingleAccount
+      summary: Get Watchlists For Single Account
+      description: Retrieve all watchlists for a specific account.
+      tags:
+        - Watchlists
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: List of watchlists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Watchlist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createWatchlist
+      summary: Create Watchlist
+      description: Create a new watchlist for a specific account.
+      tags:
+        - Watchlists
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        description: Watchlist definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WatchlistRequest'
+      responses:
+        '200':
+          description: Watchlist created
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/watchlists:
+    get:
+      operationId: getWatchlistsForMultipleAccounts
+      summary: Get Watchlists For Multiple Accounts
+      description: Retrieve all watchlists across all linked accounts.
+      tags:
+        - Watchlists
+      responses:
+        '200':
+          description: All watchlists across all accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Watchlist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/watchlists/{watchlistId}:
+    get:
+      operationId: getWatchlist
+      summary: Get Watchlist
+      description: Retrieve a specific watchlist by its ID.
+      tags:
+        - Watchlists
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/WatchlistId'
+      responses:
+        '200':
+          description: Watchlist details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Watchlist'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: replaceWatchlist
+      summary: Replace Watchlist
+      description: Replace an existing watchlist entirely with a new specification.
+      tags:
+        - Watchlists
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/WatchlistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WatchlistRequest'
+      responses:
+        '200':
+          description: Watchlist replaced
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    patch:
+      operationId: updateWatchlist
+      summary: Update Watchlist
+      description: Partially update an existing watchlist (add/remove instruments).
+      tags:
+        - Watchlists
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/WatchlistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WatchlistRequest'
+      responses:
+        '200':
+          description: Watchlist updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteWatchlist
+      summary: Delete Watchlist
+      description: Delete a specific watchlist.
+      tags:
+        - Watchlists
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+        - $ref: '#/components/parameters/WatchlistId'
+      responses:
+        '200':
+          description: Watchlist deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/{accountId}/preferences:
+    get:
+      operationId: getPreferences
+      summary: Get Preferences
+      description: Get account preferences for a specific account.
+      tags:
+        - User Management
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      responses:
+        '200':
+          description: Account preferences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preferences'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updatePreferences
+      summary: Update Preferences
+      description: Update account preferences for a specific account.
+      tags:
+        - User Management
+      parameters:
+        - $ref: '#/components/parameters/AccountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preferences'
+      responses:
+        '200':
+          description: Preferences updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /userprincipals:
+    get:
+      operationId: getUserPrincipals
+      summary: Get User Principals
+      description: Retrieve user principal details including linked accounts and preferences.
+      tags:
+        - User Management
+      parameters:
+        - name: fields
+          in: query
+          description: Comma-separated list of additional fields to include
+          schema:
+            type: string
+            example: streamerSubscriptionKeys,streamerConnectionInfo
+      responses:
+        '200':
+          description: User principal details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPrincipal'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: TD Ameritrade uses OAuth 2.0 token-based authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tdameritrade.com/auth
+          tokenUrl: https://api.tdameritrade.com/v1/oauth2/token
+          scopes:
+            PlaceTrades: Place trades on behalf of the user
+            AccountAccess: Access account information
+            MoveMoney: Transfer funds between accounts
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      description: Unique order identifier
+      schema:
+        type: string
+    WatchlistId:
+      name: watchlistId
+      in: path
+      required: true
+      description: Unique watchlist identifier
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad Request - Invalid parameters or request body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not Found - Resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+    Account:
+      type: object
+      description: Brokerage account information including balances and positions
+      properties:
+        securitiesAccount:
+          type: object
+          properties:
+            accountId:
+              type: string
+              description: Unique account identifier
+            type:
+              type: string
+              enum:
+                - CASH
+                - MARGIN
+              description: Account type
+            roundTrips:
+              type: integer
+              description: Number of day trades in the rolling 5-day period
+            isDayTrader:
+              type: boolean
+              description: Whether account is flagged as a pattern day trader
+            isClosingOnlyRestricted:
+              type: boolean
+            currentBalances:
+              type: object
+              description: Current account balances
+              properties:
+                availableFunds:
+                  type: number
+                  format: double
+                buyingPower:
+                  type: number
+                  format: double
+                liquidationValue:
+                  type: number
+                  format: double
+                cashBalance:
+                  type: number
+                  format: double
+            positions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Position'
+    Position:
+      type: object
+      description: A security position held in an account
+      properties:
+        shortQuantity:
+          type: number
+          format: double
+        averagePrice:
+          type: number
+          format: double
+        currentValue:
+          type: number
+          format: double
+        longQuantity:
+          type: number
+          format: double
+        settledLongQuantity:
+          type: number
+          format: double
+        settledShortQuantity:
+          type: number
+          format: double
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+    Order:
+      type: object
+      description: A trade order
+      properties:
+        session:
+          type: string
+          enum:
+            - NORMAL
+            - AM
+            - PM
+            - SEAMLESS
+        duration:
+          type: string
+          enum:
+            - DAY
+            - GOOD_TILL_CANCEL
+            - FILL_OR_KILL
+        orderType:
+          type: string
+          enum:
+            - MARKET
+            - LIMIT
+            - STOP
+            - STOP_LIMIT
+            - TRAILING_STOP
+            - MARKET_ON_CLOSE
+            - EXERCISE
+            - TRAILING_STOP_LIMIT
+            - NET_DEBIT
+            - NET_CREDIT
+            - NET_ZERO
+        cancelTime:
+          type: object
+        complexOrderStrategyType:
+          type: string
+        quantity:
+          type: number
+          format: double
+        filledQuantity:
+          type: number
+          format: double
+        remainingQuantity:
+          type: number
+          format: double
+        requestedDestination:
+          type: string
+        destinationLinkName:
+          type: string
+        price:
+          type: number
+          format: double
+        orderLegCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLeg'
+        orderStrategyType:
+          type: string
+          enum:
+            - SINGLE
+            - OCO
+            - TRIGGER
+        orderId:
+          type: integer
+          format: int64
+        cancelable:
+          type: boolean
+        editable:
+          type: boolean
+        status:
+          type: string
+        enteredTime:
+          type: string
+          format: date-time
+        closeTime:
+          type: string
+          format: date-time
+        accountId:
+          type: string
+    OrderLeg:
+      type: object
+      properties:
+        orderLegType:
+          type: string
+          enum:
+            - EQUITY
+            - OPTION
+            - INDEX
+            - MUTUAL_FUND
+            - CASH_EQUIVALENT
+            - FIXED_INCOME
+            - CURRENCY
+        legId:
+          type: integer
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+        instruction:
+          type: string
+          enum:
+            - BUY
+            - SELL
+            - BUY_TO_COVER
+            - SELL_SHORT
+            - BUY_TO_OPEN
+            - BUY_TO_CLOSE
+            - SELL_TO_OPEN
+            - SELL_TO_CLOSE
+            - EXCHANGE
+        positionEffect:
+          type: string
+          enum:
+            - OPENING
+            - CLOSING
+            - AUTOMATIC
+        quantity:
+          type: number
+          format: double
+    OrderRequest:
+      type: object
+      description: Order placement request
+      required:
+        - orderType
+        - session
+        - duration
+        - orderStrategyType
+        - orderLegCollection
+      properties:
+        orderType:
+          type: string
+          enum:
+            - MARKET
+            - LIMIT
+            - STOP
+            - STOP_LIMIT
+        session:
+          type: string
+          enum:
+            - NORMAL
+            - AM
+            - PM
+            - SEAMLESS
+        price:
+          type: number
+          format: double
+          description: Limit price (required for LIMIT orders)
+        duration:
+          type: string
+          enum:
+            - DAY
+            - GOOD_TILL_CANCEL
+            - FILL_OR_KILL
+        orderStrategyType:
+          type: string
+          enum:
+            - SINGLE
+            - OCO
+            - TRIGGER
+        orderLegCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLeg'
+    Quote:
+      type: object
+      description: Market quote data for a security
+      properties:
+        assetType:
+          type: string
+        assetMainType:
+          type: string
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        bidPrice:
+          type: number
+          format: double
+        bidSize:
+          type: integer
+        bidId:
+          type: string
+        askPrice:
+          type: number
+          format: double
+        askSize:
+          type: integer
+        askId:
+          type: string
+        lastPrice:
+          type: number
+          format: double
+        lastSize:
+          type: integer
+        lastId:
+          type: string
+        openPrice:
+          type: number
+          format: double
+        highPrice:
+          type: number
+          format: double
+        lowPrice:
+          type: number
+          format: double
+        closePrice:
+          type: number
+          format: double
+        netChange:
+          type: number
+          format: double
+        totalVolume:
+          type: integer
+          format: int64
+        tradeTimeInLong:
+          type: integer
+          format: int64
+        quoteTimeInLong:
+          type: integer
+          format: int64
+        mark:
+          type: number
+          format: double
+        exchange:
+          type: string
+        exchangeName:
+          type: string
+        volatility:
+          type: number
+          format: double
+        digits:
+          type: integer
+        '52WkHigh':
+          type: number
+          format: double
+        '52WkLow':
+          type: number
+          format: double
+        peRatio:
+          type: number
+          format: double
+        divAmount:
+          type: number
+          format: double
+        divYield:
+          type: number
+          format: double
+        divDate:
+          type: string
+        securityStatus:
+          type: string
+        regularMarketLastPrice:
+          type: number
+          format: double
+        regularMarketLastSize:
+          type: integer
+        regularMarketNetChange:
+          type: number
+          format: double
+        regularMarketTradeTimeInLong:
+          type: integer
+          format: int64
+    PriceHistory:
+      type: object
+      description: Historical price data for a security
+      properties:
+        candles:
+          type: array
+          items:
+            type: object
+            properties:
+              open:
+                type: number
+                format: double
+              high:
+                type: number
+                format: double
+              low:
+                type: number
+                format: double
+              close:
+                type: number
+                format: double
+              volume:
+                type: integer
+                format: int64
+              datetime:
+                type: integer
+                format: int64
+        symbol:
+          type: string
+        empty:
+          type: boolean
+    OptionChain:
+      type: object
+      description: Option chain data for an optionable security
+      properties:
+        symbol:
+          type: string
+        status:
+          type: string
+        underlying:
+          type: object
+        strategy:
+          type: string
+        interval:
+          type: number
+          format: double
+        isDelayed:
+          type: boolean
+        isIndex:
+          type: boolean
+        interestRate:
+          type: number
+          format: double
+        underlyingPrice:
+          type: number
+          format: double
+        volatility:
+          type: number
+          format: double
+        daysToExpiration:
+          type: number
+          format: double
+        numberOfContracts:
+          type: integer
+        callExpDateMap:
+          type: object
+          additionalProperties:
+            type: object
+        putExpDateMap:
+          type: object
+          additionalProperties:
+            type: object
+    Mover:
+      type: object
+      description: A market mover (top gainer or loser)
+      properties:
+        change:
+          type: number
+          format: double
+        description:
+          type: string
+        direction:
+          type: string
+          enum:
+            - up
+            - down
+        last:
+          type: number
+          format: double
+        symbol:
+          type: string
+        totalVolume:
+          type: integer
+          format: int64
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+            - EQUITY
+            - ETF
+            - FOREX
+            - FUTURE
+            - FUTURE_OPTION
+            - INDEX
+            - INDICATOR
+            - MUTUAL_FUND
+            - OPTION
+            - UNKNOWN
+    Transaction:
+      type: object
+      description: An account transaction record
+      properties:
+        type:
+          type: string
+        clearingReferenceNumber:
+          type: string
+        subAccount:
+          type: string
+        settlementDate:
+          type: string
+          format: date
+        orderId:
+          type: string
+        netAmount:
+          type: number
+          format: double
+        transactionDate:
+          type: string
+          format: date-time
+        orderDate:
+          type: string
+          format: date-time
+        transactionSubType:
+          type: string
+        transactionId:
+          type: integer
+          format: int64
+        cashBalanceEffectFlag:
+          type: boolean
+        description:
+          type: string
+        fees:
+          type: object
+        transactionItem:
+          type: object
+          properties:
+            accountId:
+              type: string
+            amount:
+              type: number
+              format: double
+            price:
+              type: number
+              format: double
+            cost:
+              type: number
+              format: double
+            instruction:
+              type: string
+            instrument:
+              $ref: '#/components/schemas/Instrument'
+    Watchlist:
+      type: object
+      description: A saved list of securities to watch
+      properties:
+        name:
+          type: string
+          description: Name of the watchlist
+        watchlistId:
+          type: string
+          description: Unique watchlist identifier
+        accountId:
+          type: string
+          description: Associated account ID
+        status:
+          type: string
+        watchlistItems:
+          type: array
+          items:
+            type: object
+            properties:
+              sequenceId:
+                type: integer
+              quantity:
+                type: number
+                format: double
+              averagePrice:
+                type: number
+                format: double
+              commission:
+                type: number
+                format: double
+              purchasedDate:
+                type: string
+              instrument:
+                $ref: '#/components/schemas/Instrument'
+    WatchlistRequest:
+      type: object
+      required:
+        - name
+        - watchlistItems
+      properties:
+        name:
+          type: string
+          description: Watchlist name
+        watchlistItems:
+          type: array
+          items:
+            type: object
+            properties:
+              instrument:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                  assetType:
+                    type: string
+    Preferences:
+      type: object
+      description: Account preferences settings
+      properties:
+        expressTrading:
+          type: boolean
+        directOptionsRouting:
+          type: boolean
+        directEquityRouting:
+          type: boolean
+        defaultEquityOrderLegInstruction:
+          type: string
+        defaultEquityOrderType:
+          type: string
+        defaultEquityOrderPriceLinkType:
+          type: string
+        defaultEquityOrderDuration:
+          type: string
+        defaultEquityOrderMarketSession:
+          type: string
+        defaultEquityQuantity:
+          type: integer
+        mutualFundTaxLotMethod:
+          type: string
+        optionTaxLotMethod:
+          type: string
+        equityTaxLotMethod:
+          type: string
+        defaultAdvancedToolLaunch:
+          type: string
+        authTokenTimeout:
+          type: string
+    UserPrincipal:
+      type: object
+      description: User principal information including linked accounts
+      properties:
+        userId:
+          type: string
+        userCdDomainId:
+          type: string
+        primaryAccountId:
+          type: string
+        lastLoginTime:
+          type: string
+          format: date-time
+        tokenExpirationTime:
+          type: string
+          format: date-time
+        loginTime:
+          type: string
+          format: date-time
+        accessLevel:
+          type: string
+        stalePassword:
+          type: boolean
+        professionalStatus:
+          type: string
+        exchange:
+          type: string
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              accountId:
+                type: string
+              displayName:
+                type: string
+              accountCdDomainId:
+                type: string
+              company:
+                type: string
+              segment:
+                type: string
+              surrogateIds:
+                type: object
+              preferences:
+                $ref: '#/components/schemas/Preferences'
+              acl:
+                type: string
+              authorizations:
+                type: object

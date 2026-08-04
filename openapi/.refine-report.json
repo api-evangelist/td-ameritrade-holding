@@ -1,0 +1,30 @@
+{
+  "provider": "td-ameritrade-holding",
+  "sources": [
+    "td-ameritrade-holding-accounts-api-openapi.yml",
+    "td-ameritrade-holding-instruments-api-openapi.yml",
+    "td-ameritrade-holding-market-data-api-openapi.yml",
+    "td-ameritrade-holding-options-api-openapi.yml",
+    "td-ameritrade-holding-orders-api-openapi.yml",
+    "td-ameritrade-holding-saved-orders-api-openapi.yml",
+    "td-ameritrade-holding-transactions-api-openapi.yml",
+    "td-ameritrade-holding-user-management-api-openapi.yml",
+    "td-ameritrade-holding-watchlists-api-openapi.yml"
+  ],
+  "outputs": [
+    "td-ameritrade-holding-accounts-api-openapi.yml",
+    "td-ameritrade-holding-instruments-api-openapi.yml",
+    "td-ameritrade-holding-market-data-api-openapi.yml",
+    "td-ameritrade-holding-options-api-openapi.yml",
+    "td-ameritrade-holding-orders-api-openapi.yml",
+    "td-ameritrade-holding-saved-orders-api-openapi.yml",
+    "td-ameritrade-holding-transactions-api-openapi.yml",
+    "td-ameritrade-holding-user-management-api-openapi.yml",
+    "td-ameritrade-holding-watchlists-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
