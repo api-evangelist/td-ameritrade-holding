@@ -1,0 +1,518 @@
+{
+  "item": [
+    {
+      "id": "98b20b9b-f4e4-4327-b3cf-a84124e3a5d4",
+      "name": "User Management",
+      "description": {
+        "content": "User preferences and principal data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "25a682eb-1462-4c87-a103-4362fd14cffb",
+          "name": "Get Preferences",
+          "request": {
+            "name": "Get Preferences",
+            "description": {
+              "content": "Get account preferences for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "preferences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "efbc4b7e-9b74-45c9-a83e-d94801ecbc8b",
+              "name": "Account preferences",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "preferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"expressTrading\": false,\n  \"directOptionsRouting\": true,\n  \"directEquityRouting\": false,\n  \"defaultEquityOrderLegInstruction\": \"string\",\n  \"defaultEquityOrderType\": \"string\",\n  \"defaultEquityOrderPriceLinkType\": \"string\",\n  \"defaultEquityOrderDuration\": \"string\",\n  \"defaultEquityOrderMarketSession\": \"string\",\n  \"defaultEquityQuantity\": 1189,\n  \"mutualFundTaxLotMethod\": \"string\",\n  \"optionTaxLotMethod\": \"string\",\n  \"equityTaxLotMethod\": \"string\",\n  \"defaultAdvancedToolLaunch\": \"string\",\n  \"authTokenTimeout\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "420b4dce-4a62-4a0e-ba11-eb8a4a796de6",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "preferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6345557-a0d3-47b5-bd2a-3fc99a2c5134",
+          "name": "Update Preferences",
+          "request": {
+            "name": "Update Preferences",
+            "description": {
+              "content": "Update account preferences for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "preferences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expressTrading\": \"<boolean>\",\n  \"directOptionsRouting\": \"<boolean>\",\n  \"directEquityRouting\": \"<boolean>\",\n  \"defaultEquityOrderLegInstruction\": \"<string>\",\n  \"defaultEquityOrderType\": \"<string>\",\n  \"defaultEquityOrderPriceLinkType\": \"<string>\",\n  \"defaultEquityOrderDuration\": \"<string>\",\n  \"defaultEquityOrderMarketSession\": \"<string>\",\n  \"defaultEquityQuantity\": \"<integer>\",\n  \"mutualFundTaxLotMethod\": \"<string>\",\n  \"optionTaxLotMethod\": \"<string>\",\n  \"equityTaxLotMethod\": \"<string>\",\n  \"defaultAdvancedToolLaunch\": \"<string>\",\n  \"authTokenTimeout\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87d33553-a5f0-4db9-84f7-0468b59e069b",
+              "name": "Preferences updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "preferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expressTrading\": \"<boolean>\",\n  \"directOptionsRouting\": \"<boolean>\",\n  \"directEquityRouting\": \"<boolean>\",\n  \"defaultEquityOrderLegInstruction\": \"<string>\",\n  \"defaultEquityOrderType\": \"<string>\",\n  \"defaultEquityOrderPriceLinkType\": \"<string>\",\n  \"defaultEquityOrderDuration\": \"<string>\",\n  \"defaultEquityOrderMarketSession\": \"<string>\",\n  \"defaultEquityQuantity\": \"<integer>\",\n  \"mutualFundTaxLotMethod\": \"<string>\",\n  \"optionTaxLotMethod\": \"<string>\",\n  \"equityTaxLotMethod\": \"<string>\",\n  \"defaultAdvancedToolLaunch\": \"<string>\",\n  \"authTokenTimeout\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "62d45c4b-d998-4efa-9e0c-36e5445aebae",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "preferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expressTrading\": \"<boolean>\",\n  \"directOptionsRouting\": \"<boolean>\",\n  \"directEquityRouting\": \"<boolean>\",\n  \"defaultEquityOrderLegInstruction\": \"<string>\",\n  \"defaultEquityOrderType\": \"<string>\",\n  \"defaultEquityOrderPriceLinkType\": \"<string>\",\n  \"defaultEquityOrderDuration\": \"<string>\",\n  \"defaultEquityOrderMarketSession\": \"<string>\",\n  \"defaultEquityQuantity\": \"<integer>\",\n  \"mutualFundTaxLotMethod\": \"<string>\",\n  \"optionTaxLotMethod\": \"<string>\",\n  \"equityTaxLotMethod\": \"<string>\",\n  \"defaultAdvancedToolLaunch\": \"<string>\",\n  \"authTokenTimeout\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "819a19a4-4502-4409-9f82-8ce048efd4b3",
+          "name": "Get User Principals",
+          "request": {
+            "name": "Get User Principals",
+            "description": {
+              "content": "Retrieve user principal details including linked accounts and preferences.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "userprincipals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of additional fields to include"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aee271a0-fccd-4328-b152-a08f16c66196",
+              "name": "User principal details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userprincipals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "streamerSubscriptionKeys,streamerConnectionInfo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"userId\": \"string\",\n  \"userCdDomainId\": \"string\",\n  \"primaryAccountId\": \"string\",\n  \"lastLoginTime\": \"1991-10-01T15:54:03.898Z\",\n  \"tokenExpirationTime\": \"2011-10-18T04:19:20.068Z\",\n  \"loginTime\": \"2003-09-06T14:17:59.419Z\",\n  \"accessLevel\": \"string\",\n  \"stalePassword\": false,\n  \"professionalStatus\": \"string\",\n  \"exchange\": \"string\",\n  \"accounts\": [\n    {\n      \"accountId\": \"string\",\n      \"displayName\": \"string\",\n      \"accountCdDomainId\": \"string\",\n      \"company\": \"string\",\n      \"segment\": \"string\",\n      \"surrogateIds\": {},\n      \"preferences\": {\n        \"expressTrading\": \"<boolean>\",\n        \"directOptionsRouting\": \"<boolean>\",\n        \"directEquityRouting\": \"<boolean>\",\n        \"defaultEquityOrderLegInstruction\": \"<string>\",\n        \"defaultEquityOrderType\": \"<string>\",\n        \"defaultEquityOrderPriceLinkType\": \"<string>\",\n        \"defaultEquityOrderDuration\": \"<string>\",\n        \"defaultEquityOrderMarketSession\": \"<string>\",\n        \"defaultEquityQuantity\": \"<integer>\",\n        \"mutualFundTaxLotMethod\": \"<string>\",\n        \"optionTaxLotMethod\": \"<string>\",\n        \"equityTaxLotMethod\": \"<string>\",\n        \"defaultAdvancedToolLaunch\": \"<string>\",\n        \"authTokenTimeout\": \"<string>\"\n      },\n      \"acl\": \"string\",\n      \"authorizations\": {}\n    },\n    {\n      \"accountId\": \"string\",\n      \"displayName\": \"string\",\n      \"accountCdDomainId\": \"string\",\n      \"company\": \"string\",\n      \"segment\": \"string\",\n      \"surrogateIds\": {},\n      \"preferences\": {\n        \"expressTrading\": \"<boolean>\",\n        \"directOptionsRouting\": \"<boolean>\",\n        \"directEquityRouting\": \"<boolean>\",\n        \"defaultEquityOrderLegInstruction\": \"<string>\",\n        \"defaultEquityOrderType\": \"<string>\",\n        \"defaultEquityOrderPriceLinkType\": \"<string>\",\n        \"defaultEquityOrderDuration\": \"<string>\",\n        \"defaultEquityOrderMarketSession\": \"<string>\",\n        \"defaultEquityQuantity\": \"<integer>\",\n        \"mutualFundTaxLotMethod\": \"<string>\",\n        \"optionTaxLotMethod\": \"<string>\",\n        \"equityTaxLotMethod\": \"<string>\",\n        \"defaultAdvancedToolLaunch\": \"<string>\",\n        \"authTokenTimeout\": \"<string>\"\n      },\n      \"acl\": \"string\",\n      \"authorizations\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a480ab0-53fb-430e-97e8-5dc1afff2403",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "userprincipals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "streamerSubscriptionKeys,streamerConnectionInfo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tdameritrade.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "PlaceTrades AccountAccess MoveMoney"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.tdameritrade.com/v1/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tdameritrade.com/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "34d4e5b8-6072-4f71-9e92-abbf1c70ae89",
+    "name": "TD Ameritrade and Trading Accounts User Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.\n\nContact Support:\n Name: Charles Schwab (Successor)",
+      "type": "text/plain"
+    }
+  }
+}

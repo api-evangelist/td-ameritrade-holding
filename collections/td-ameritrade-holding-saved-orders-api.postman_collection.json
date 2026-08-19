@@ -1,0 +1,926 @@
+{
+  "item": [
+    {
+      "id": "62ffb87b-edb5-44df-be16-8aaf57c4fd64",
+      "name": "Saved Orders",
+      "description": {
+        "content": "Saved order management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "060ea426-db47-490c-ad2a-5926e37170f5",
+          "name": "Get Saved Orders",
+          "request": {
+            "name": "Get Saved Orders",
+            "description": {
+              "content": "Retrieve all saved orders for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "savedorders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0057426d-05cf-4cd0-b65f-845efc06c7e3",
+              "name": "List of saved orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"session\": \"AM\",\n    \"duration\": \"FILL_OR_KILL\",\n    \"orderType\": \"LIMIT\",\n    \"cancelTime\": {},\n    \"complexOrderStrategyType\": \"string\",\n    \"quantity\": 2448.1770560726914,\n    \"filledQuantity\": 6566.867208060887,\n    \"remainingQuantity\": 7044.526431426844,\n    \"requestedDestination\": \"string\",\n    \"destinationLinkName\": \"string\",\n    \"price\": 5180.9297208412045,\n    \"orderLegCollection\": [\n      {\n        \"orderLegType\": \"CURRENCY\",\n        \"legId\": 6918,\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"INDEX\"\n        },\n        \"instruction\": \"BUY_TO_CLOSE\",\n        \"positionEffect\": \"OPENING\",\n        \"quantity\": 4865.0608491027\n      },\n      {\n        \"orderLegType\": \"CASH_EQUIVALENT\",\n        \"legId\": 1640,\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"FUTURE\"\n        },\n        \"instruction\": \"BUY_TO_OPEN\",\n        \"positionEffect\": \"CLOSING\",\n        \"quantity\": 8491.593507295156\n      }\n    ],\n    \"orderStrategyType\": \"TRIGGER\",\n    \"orderId\": 3920,\n    \"cancelable\": false,\n    \"editable\": false,\n    \"status\": \"string\",\n    \"enteredTime\": \"2018-06-03T19:23:34.204Z\",\n    \"closeTime\": \"1978-07-30T02:51:33.249Z\",\n    \"accountId\": \"string\"\n  },\n  {\n    \"session\": \"NORMAL\",\n    \"duration\": \"DAY\",\n    \"orderType\": \"NET_CREDIT\",\n    \"cancelTime\": {},\n    \"complexOrderStrategyType\": \"string\",\n    \"quantity\": 645.6685598897449,\n    \"filledQuantity\": 8165.8033671522735,\n    \"remainingQuantity\": 195.08245254166056,\n    \"requestedDestination\": \"string\",\n    \"destinationLinkName\": \"string\",\n    \"price\": 5901.096771411693,\n    \"orderLegCollection\": [\n      {\n        \"orderLegType\": \"FIXED_INCOME\",\n        \"legId\": 5950,\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"INDICATOR\"\n        },\n        \"instruction\": \"SELL_SHORT\",\n        \"positionEffect\": \"OPENING\",\n        \"quantity\": 4708.690650634303\n      },\n      {\n        \"orderLegType\": \"FIXED_INCOME\",\n        \"legId\": 1748,\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"UNKNOWN\"\n        },\n        \"instruction\": \"BUY_TO_OPEN\",\n        \"positionEffect\": \"AUTOMATIC\",\n        \"quantity\": 3936.1517322096197\n      }\n    ],\n    \"orderStrategyType\": \"SINGLE\",\n    \"orderId\": 8151,\n    \"cancelable\": true,\n    \"editable\": true,\n    \"status\": \"string\",\n    \"enteredTime\": \"1987-09-30T03:36:02.036Z\",\n    \"closeTime\": \"1978-06-21T22:43:08.046Z\",\n    \"accountId\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9b86709-ddf0-467d-8cd8-74f4d76e8886",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3b6e934-bd68-46be-aed0-553cce4600be",
+          "name": "Create Saved Order",
+          "request": {
+            "name": "Create Saved Order",
+            "description": {
+              "content": "Save an order template for future use.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "savedorders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderType\": \"<string>\",\n  \"session\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"orderStrategyType\": \"<string>\",\n  \"orderLegCollection\": [\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"price\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2437484c-e3a4-4900-a078-94e51259a4e9",
+              "name": "Saved order created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderType\": \"<string>\",\n  \"session\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"orderStrategyType\": \"<string>\",\n  \"orderLegCollection\": [\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"price\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8d5aa8bb-9e3c-434b-8632-1e91f4df1cdc",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderType\": \"<string>\",\n  \"session\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"orderStrategyType\": \"<string>\",\n  \"orderLegCollection\": [\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"price\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be5cc99c-997d-4552-94d8-3a9997b6a609",
+          "name": "Get Saved Order",
+          "request": {
+            "name": "Get Saved Order",
+            "description": {
+              "content": "Retrieve a specific saved order by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "savedorders",
+                ":savedOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "savedOrderId",
+                  "description": "(Required) Unique identifier of the saved order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4211aaa5-6a25-4eb2-8923-00de08e685ce",
+              "name": "Saved order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders",
+                    ":savedOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "savedOrderId",
+                      "description": "(Required) Unique identifier of the saved order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"session\": \"PM\",\n  \"duration\": \"GOOD_TILL_CANCEL\",\n  \"orderType\": \"STOP_LIMIT\",\n  \"cancelTime\": {},\n  \"complexOrderStrategyType\": \"string\",\n  \"quantity\": 3396.025249299217,\n  \"filledQuantity\": 5666.021118395943,\n  \"remainingQuantity\": 8090.342110743959,\n  \"requestedDestination\": \"string\",\n  \"destinationLinkName\": \"string\",\n  \"price\": 6866.663649617523,\n  \"orderLegCollection\": [\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"orderStrategyType\": \"TRIGGER\",\n  \"orderId\": 6473,\n  \"cancelable\": false,\n  \"editable\": false,\n  \"status\": \"string\",\n  \"enteredTime\": \"1991-07-26T15:38:25.320Z\",\n  \"closeTime\": \"1976-11-05T07:59:46.940Z\",\n  \"accountId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5724311b-c392-4541-b7dc-d67107d36ff1",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders",
+                    ":savedOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "savedOrderId",
+                      "description": "(Required) Unique identifier of the saved order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "973015f2-f132-4e83-806b-4c3ca12e9ac1",
+          "name": "Replace Saved Order",
+          "request": {
+            "name": "Replace Saved Order",
+            "description": {
+              "content": "Update an existing saved order with new specifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "savedorders",
+                ":savedOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "savedOrderId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderType\": \"<string>\",\n  \"session\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"orderStrategyType\": \"<string>\",\n  \"orderLegCollection\": [\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"price\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8886c10f-e9a7-4a11-bb3c-89e357b5a006",
+              "name": "Saved order updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders",
+                    ":savedOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "savedOrderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderType\": \"<string>\",\n  \"session\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"orderStrategyType\": \"<string>\",\n  \"orderLegCollection\": [\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"price\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "10eb8f19-6c10-48b4-8053-f8fa78a41716",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders",
+                    ":savedOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "savedOrderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderType\": \"<string>\",\n  \"session\": \"<string>\",\n  \"duration\": \"<string>\",\n  \"orderStrategyType\": \"<string>\",\n  \"orderLegCollection\": [\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"orderLegType\": \"<string>\",\n      \"legId\": \"<integer>\",\n      \"instrument\": {\n        \"cusip\": \"<string>\",\n        \"symbol\": \"<string>\",\n        \"description\": \"<string>\",\n        \"exchange\": \"<string>\",\n        \"assetType\": \"<string>\"\n      },\n      \"instruction\": \"<string>\",\n      \"positionEffect\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"price\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a9347f7-4b75-441f-a82c-69d23f4c0ccd",
+          "name": "Delete Saved Order",
+          "request": {
+            "name": "Delete Saved Order",
+            "description": {
+              "content": "Remove a saved order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "savedorders",
+                ":savedOrderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "savedOrderId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6c2f90e-78d5-4573-9d68-d662b87dc0e1",
+              "name": "Saved order deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders",
+                    ":savedOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "savedOrderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58890509-6814-4771-ad9c-6eb28352d6fa",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "savedorders",
+                    ":savedOrderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "savedOrderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tdameritrade.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "PlaceTrades AccountAccess MoveMoney"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.tdameritrade.com/v1/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tdameritrade.com/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0cf03f2f-52ed-450a-933c-57f3fb11ad20",
+    "name": "TD Ameritrade and Trading Accounts Saved Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.\n\nContact Support:\n Name: Charles Schwab (Successor)",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1250 @@
+{
+  "item": [
+    {
+      "id": "051a4b1e-40fc-4091-a745-8c93286d79ce",
+      "name": "Watchlists",
+      "description": {
+        "content": "Watchlist creation and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7849439e-f0a2-4aff-b821-85182fc5878c",
+          "name": "Get Watchlists For Single Account",
+          "request": {
+            "name": "Get Watchlists For Single Account",
+            "description": {
+              "content": "Retrieve all watchlists for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "watchlists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5108702a-5172-4afc-a567-be3d6d0762d0",
+              "name": "List of watchlists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"watchlistId\": \"string\",\n    \"accountId\": \"string\",\n    \"status\": \"string\",\n    \"watchlistItems\": [\n      {\n        \"sequenceId\": 6402,\n        \"quantity\": 9604.671518035262,\n        \"averagePrice\": 3250.1303855669985,\n        \"commission\": 3077.313632781069,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"EQUITY\"\n        }\n      },\n      {\n        \"sequenceId\": 8915,\n        \"quantity\": 8557.030695604402,\n        \"averagePrice\": 6807.4466001304,\n        \"commission\": 5785.8595108868085,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"ETF\"\n        }\n      }\n    ]\n  },\n  {\n    \"name\": \"string\",\n    \"watchlistId\": \"string\",\n    \"accountId\": \"string\",\n    \"status\": \"string\",\n    \"watchlistItems\": [\n      {\n        \"sequenceId\": 386,\n        \"quantity\": 9508.173962850278,\n        \"averagePrice\": 3119.2448294551323,\n        \"commission\": 4115.02207514884,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"OPTION\"\n        }\n      },\n      {\n        \"sequenceId\": 5332,\n        \"quantity\": 4331.9181591169745,\n        \"averagePrice\": 6699.794078116111,\n        \"commission\": 831.7283336599924,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"FOREX\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea92ad9-068f-47c5-8cc9-4e28eb9ec172",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0fcd0230-e9cd-4fc5-a81c-95ea29e990e4",
+          "name": "Create Watchlist",
+          "request": {
+            "name": "Create Watchlist",
+            "description": {
+              "content": "Create a new watchlist for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "watchlists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9b5926f-a7b7-4817-9cd2-090b120caa91",
+              "name": "Watchlist created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4ba13ce9-4c90-401e-9b72-3376e3d0c80e",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e518370-8f48-49f0-9979-867dd3d219b9",
+          "name": "Get Watchlists For Multiple Accounts",
+          "request": {
+            "name": "Get Watchlists For Multiple Accounts",
+            "description": {
+              "content": "Retrieve all watchlists across all linked accounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "watchlists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0e142f8-c918-46a3-aceb-27bf23aa4a60",
+              "name": "All watchlists across all accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "watchlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"watchlistId\": \"string\",\n    \"accountId\": \"string\",\n    \"status\": \"string\",\n    \"watchlistItems\": [\n      {\n        \"sequenceId\": 2319,\n        \"quantity\": 6405.376244931577,\n        \"averagePrice\": 193.2052811300189,\n        \"commission\": 6039.535986256347,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"EQUITY\"\n        }\n      },\n      {\n        \"sequenceId\": 2999,\n        \"quantity\": 5247.742532779681,\n        \"averagePrice\": 2527.55574546404,\n        \"commission\": 1157.276265550532,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"EQUITY\"\n        }\n      }\n    ]\n  },\n  {\n    \"name\": \"string\",\n    \"watchlistId\": \"string\",\n    \"accountId\": \"string\",\n    \"status\": \"string\",\n    \"watchlistItems\": [\n      {\n        \"sequenceId\": 3674,\n        \"quantity\": 5612.325280106242,\n        \"averagePrice\": 3567.5623164705707,\n        \"commission\": 5384.017106796541,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"FUTURE_OPTION\"\n        }\n      },\n      {\n        \"sequenceId\": 4863,\n        \"quantity\": 5511.609440357987,\n        \"averagePrice\": 91.35702069270724,\n        \"commission\": 4113.072303191867,\n        \"purchasedDate\": \"string\",\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"UNKNOWN\"\n        }\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe9787e6-e64b-4c4b-b1b7-0e910f11a5ec",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "watchlists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5892b254-96c5-49fc-b183-c88e11bbf143",
+          "name": "Get Watchlist",
+          "request": {
+            "name": "Get Watchlist",
+            "description": {
+              "content": "Retrieve a specific watchlist by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "watchlists",
+                ":watchlistId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "watchlistId",
+                  "description": "(Required) Unique watchlist identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f7c6c479-2476-471c-bcae-29ba6c7487bc",
+              "name": "Watchlist details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"watchlistId\": \"string\",\n  \"accountId\": \"string\",\n  \"status\": \"string\",\n  \"watchlistItems\": [\n    {\n      \"sequenceId\": 3588,\n      \"quantity\": 790.1835938211166,\n      \"averagePrice\": 6349.838139459239,\n      \"commission\": 932.7933906154595,\n      \"purchasedDate\": \"string\",\n      \"instrument\": {\n        \"cusip\": \"string\",\n        \"symbol\": \"string\",\n        \"description\": \"string\",\n        \"exchange\": \"string\",\n        \"assetType\": \"FUTURE\"\n      }\n    },\n    {\n      \"sequenceId\": 8761,\n      \"quantity\": 7792.322212213845,\n      \"averagePrice\": 922.0596056825036,\n      \"commission\": 6325.831802240591,\n      \"purchasedDate\": \"string\",\n      \"instrument\": {\n        \"cusip\": \"string\",\n        \"symbol\": \"string\",\n        \"description\": \"string\",\n        \"exchange\": \"string\",\n        \"assetType\": \"MUTUAL_FUND\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "605aafe9-ba78-4b62-8f8a-652edc7f5542",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8622334b-cbc4-47b3-ad96-21f398356114",
+          "name": "Replace Watchlist",
+          "request": {
+            "name": "Replace Watchlist",
+            "description": {
+              "content": "Replace an existing watchlist entirely with a new specification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "watchlists",
+                ":watchlistId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "watchlistId",
+                  "description": "(Required) Unique watchlist identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b05c1a9c-73f4-4cc4-a4de-2bb0d1c361f4",
+              "name": "Watchlist replaced",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14d9156a-a53e-417b-87b8-126bd932ff34",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "902433b2-5bab-4b58-8c03-d45148c34cdb",
+          "name": "Update Watchlist",
+          "request": {
+            "name": "Update Watchlist",
+            "description": {
+              "content": "Partially update an existing watchlist (add/remove instruments).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "watchlists",
+                ":watchlistId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "watchlistId",
+                  "description": "(Required) Unique watchlist identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6f7f0e0-0f96-4cb6-8fad-44ddde58a728",
+              "name": "Watchlist updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1887ea05-f9fb-4458-8b77-2cf2119cad40",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"watchlistItems\": [\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    },\n    {\n      \"instrument\": {\n        \"symbol\": \"<string>\",\n        \"assetType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6401c02-f42a-4519-b2bb-b0d9be737102",
+          "name": "Delete Watchlist",
+          "request": {
+            "name": "Delete Watchlist",
+            "description": {
+              "content": "Delete a specific watchlist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId",
+                "watchlists",
+                ":watchlistId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "watchlistId",
+                  "description": "(Required) Unique watchlist identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5743a246-2d41-4fcc-b346-4c61d8ed6cb8",
+              "name": "Watchlist deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "31a81ba3-563a-4717-b6f9-43faa0eccaea",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId",
+                    "watchlists",
+                    ":watchlistId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "watchlistId",
+                      "description": "(Required) Unique watchlist identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tdameritrade.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "PlaceTrades AccountAccess MoveMoney"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.tdameritrade.com/v1/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tdameritrade.com/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "209e3042-092c-464f-a2cf-91cb85441d02",
+    "name": "TD Ameritrade and Trading Accounts Watchlists API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.\n\nContact Support:\n Name: Charles Schwab (Successor)",
+      "type": "text/plain"
+    }
+  }
+}

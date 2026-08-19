@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD Ameritrade and Trading Accounts Options API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tdameritrade.com/auth",
+      "accessTokenUrl": "https://api.tdameritrade.com/v1/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Options",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Option Chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/chains",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Optionable security symbol"
+              },
+              {
+                "name": "contractType",
+                "value": "",
+                "type": "query",
+                "description": "Type of contracts to return"
+              },
+              {
+                "name": "strikeCount",
+                "value": "",
+                "type": "query",
+                "description": "Number of strikes above and below the at-the-money price"
+              },
+              {
+                "name": "includeQuotes",
+                "value": "",
+                "type": "query",
+                "description": "Include quotes for options in the option chain"
+              },
+              {
+                "name": "strategy",
+                "value": "",
+                "type": "query",
+                "description": "Passing a value returns a strategy chain"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Only return expirations after this date (yyyy-MM-dd)"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Only return expirations before this date (yyyy-MM-dd)"
+              }
+            ]
+          },
+          "docs": "Get option chain data for an optionable symbol."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

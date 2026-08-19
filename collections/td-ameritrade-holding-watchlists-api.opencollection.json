@@ -1,0 +1,191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD Ameritrade and Trading Accounts Watchlists API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tdameritrade.com/auth",
+      "accessTokenUrl": "https://api.tdameritrade.com/v1/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Watchlists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Watchlists For Single Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve all watchlists for a specific account."
+        },
+        {
+          "info": {
+            "name": "Create Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new watchlist for a specific account."
+        },
+        {
+          "info": {
+            "name": "Get Watchlists For Multiple Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/watchlists"
+          },
+          "docs": "Retrieve all watchlists across all linked accounts."
+        },
+        {
+          "info": {
+            "name": "Get Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific watchlist by its ID."
+        },
+        {
+          "info": {
+            "name": "Replace Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace an existing watchlist entirely with a new specification."
+        },
+        {
+          "info": {
+            "name": "Update Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update an existing watchlist (add/remove instruments)."
+        },
+        {
+          "info": {
+            "name": "Delete Watchlist",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tdameritrade.com/v1/accounts/:accountId/watchlists/:watchlistId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Unique account identifier"
+              },
+              {
+                "name": "watchlistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique watchlist identifier"
+              }
+            ]
+          },
+          "docs": "Delete a specific watchlist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

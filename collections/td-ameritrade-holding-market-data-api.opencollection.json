@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD Ameritrade and Trading Accounts Market Data API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tdameritrade.com/auth",
+      "accessTokenUrl": "https://api.tdameritrade.com/v1/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:symbol/quotes",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Security symbol (e.g., AAPL, SPY)"
+              }
+            ]
+          },
+          "docs": "Get real-time quote data for a single security symbol."
+        },
+        {
+          "info": {
+            "name": "Get Quotes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/quotes",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of symbols"
+              }
+            ]
+          },
+          "docs": "Get real-time quote data for multiple security symbols."
+        },
+        {
+          "info": {
+            "name": "Get Price History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:symbol/pricehistory",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Security symbol"
+              },
+              {
+                "name": "periodType",
+                "value": "",
+                "type": "query",
+                "description": "Type of period to show (day, month, year, ytd)"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Number of periods to show"
+              },
+              {
+                "name": "frequencyType",
+                "value": "",
+                "type": "query",
+                "description": "Type of frequency (minute, daily, weekly, monthly)"
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Frequency of data points"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date in milliseconds since epoch"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date in milliseconds since epoch"
+              }
+            ]
+          },
+          "docs": "Get historical price data (OHLCV) for a security symbol."
+        },
+        {
+          "info": {
+            "name": "Get Hours For Multiple Markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/hours",
+            "params": [
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of markets (EQUITY, OPTION, FUTURE, BOND, FOREX)"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date for which to retrieve market hours (yyyy-MM-dd)"
+              }
+            ]
+          },
+          "docs": "Retrieve market hours for multiple markets on a specified date."
+        },
+        {
+          "info": {
+            "name": "Get Hours For Single Market",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:market/hours",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "path",
+                "description": "Market identifier"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date for which to retrieve market hours (yyyy-MM-dd)"
+              }
+            ]
+          },
+          "docs": "Retrieve market hours for a specific market on a specified date."
+        },
+        {
+          "info": {
+            "name": "Get Market Movers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/marketdata/:index/movers",
+            "params": [
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "Market index symbol"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Direction of movement to filter"
+              },
+              {
+                "name": "change",
+                "value": "",
+                "type": "query",
+                "description": "Type of change to measure"
+              }
+            ]
+          },
+          "docs": "Get the top 10 movers (up or down) by value or percentage for a market index."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

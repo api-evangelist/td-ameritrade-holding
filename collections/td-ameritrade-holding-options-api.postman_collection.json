@@ -1,0 +1,278 @@
+{
+  "item": [
+    {
+      "id": "08364d4c-3d13-4fc6-b3ec-473c66a19742",
+      "name": "Options",
+      "description": {
+        "content": "Options chains and derivatives",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc2bfa26-5159-435b-8219-0b41dd111e40",
+          "name": "Get Option Chain",
+          "request": {
+            "name": "Get Option Chain",
+            "description": {
+              "content": "Get option chain data for an optionable symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                "chains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Optionable security symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "contractType",
+                  "value": "<string>",
+                  "description": "Type of contracts to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "strikeCount",
+                  "value": "<integer>",
+                  "description": "Number of strikes above and below the at-the-money price"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeQuotes",
+                  "value": "<boolean>",
+                  "description": "Include quotes for options in the option chain"
+                },
+                {
+                  "disabled": false,
+                  "key": "strategy",
+                  "value": "<string>",
+                  "description": "Passing a value returns a strategy chain"
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<date>",
+                  "description": "Only return expirations after this date (yyyy-MM-dd)"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<date>",
+                  "description": "Only return expirations before this date (yyyy-MM-dd)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c52fcdd0-7d54-48f9-b54a-1c8bd724ad2d",
+              "name": "Option chain data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "chains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "AAPL"
+                    },
+                    {
+                      "key": "contractType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "strikeCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "includeQuotes",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "strategy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"string\",\n  \"status\": \"string\",\n  \"underlying\": {},\n  \"strategy\": \"string\",\n  \"interval\": 2809.2423106822484,\n  \"isDelayed\": false,\n  \"isIndex\": true,\n  \"interestRate\": 2681.7225300200575,\n  \"underlyingPrice\": 6706.065249596718,\n  \"volatility\": 7537.52193364199,\n  \"daysToExpiration\": 5411.615356931829,\n  \"numberOfContracts\": 1772,\n  \"callExpDateMap\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"putExpDateMap\": {\n    \"key_0\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52495903-04fa-43c4-8756-e59b52be04cc",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "chains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "AAPL"
+                    },
+                    {
+                      "key": "contractType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "strikeCount",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "includeQuotes",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "strategy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tdameritrade.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "PlaceTrades AccountAccess MoveMoney"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.tdameritrade.com/v1/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tdameritrade.com/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da040719-45eb-4761-a84d-1675af0698aa",
+    "name": "TD Ameritrade and Trading Accounts Options API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.\n\nContact Support:\n Name: Charles Schwab (Successor)",
+      "type": "text/plain"
+    }
+  }
+}

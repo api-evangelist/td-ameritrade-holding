@@ -1,0 +1,1088 @@
+{
+  "item": [
+    {
+      "id": "efaafd82-56a8-4cf8-adf3-6ffcf1cfa6b7",
+      "name": "Market Data",
+      "description": {
+        "content": "Quotes, price history, and market hours",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f793cb05-2486-4940-a0f1-e29b58f34305",
+          "name": "Get Quote",
+          "request": {
+            "name": "Get Quote",
+            "description": {
+              "content": "Get real-time quote data for a single security symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                ":symbol",
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbol",
+                  "description": "(Required) Security symbol (e.g., AAPL, SPY)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3298e77-6efd-40d7-b539-6e27b1da3d18",
+              "name": "Quote data for the symbol",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":symbol",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Security symbol (e.g., AAPL, SPY)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"assetType\": \"string\",\n    \"assetMainType\": \"string\",\n    \"cusip\": \"string\",\n    \"symbol\": \"string\",\n    \"description\": \"string\",\n    \"bidPrice\": 9434.223020734866,\n    \"bidSize\": 1530,\n    \"bidId\": \"string\",\n    \"askPrice\": 6266.922274647576,\n    \"askSize\": 4815,\n    \"askId\": \"string\",\n    \"lastPrice\": 8954.734795733837,\n    \"lastSize\": 3589,\n    \"lastId\": \"string\",\n    \"openPrice\": 9269.293651842772,\n    \"highPrice\": 9815.297175671973,\n    \"lowPrice\": 8491.721610128323,\n    \"closePrice\": 9435.135465648518,\n    \"netChange\": 3054.858193634058,\n    \"totalVolume\": 3620,\n    \"tradeTimeInLong\": 7569,\n    \"quoteTimeInLong\": 5909,\n    \"mark\": 7915.593274106687,\n    \"exchange\": \"string\",\n    \"exchangeName\": \"string\",\n    \"volatility\": 7323.179100348422,\n    \"digits\": 4454,\n    \"52WkHigh\": 2445.6685416482114,\n    \"52WkLow\": 435.4264680971276,\n    \"peRatio\": 9547.117920293947,\n    \"divAmount\": 3560.7190350556507,\n    \"divYield\": 5127.864022227944,\n    \"divDate\": \"string\",\n    \"securityStatus\": \"string\",\n    \"regularMarketLastPrice\": 3923.330047373289,\n    \"regularMarketLastSize\": 4112,\n    \"regularMarketNetChange\": 7182.078998470225,\n    \"regularMarketTradeTimeInLong\": 3031\n  },\n  \"key_1\": {\n    \"assetType\": \"string\",\n    \"assetMainType\": \"string\",\n    \"cusip\": \"string\",\n    \"symbol\": \"string\",\n    \"description\": \"string\",\n    \"bidPrice\": 837.015544788251,\n    \"bidSize\": 7767,\n    \"bidId\": \"string\",\n    \"askPrice\": 892.5306113799303,\n    \"askSize\": 6406,\n    \"askId\": \"string\",\n    \"lastPrice\": 2573.3681913550868,\n    \"lastSize\": 4015,\n    \"lastId\": \"string\",\n    \"openPrice\": 1466.219271353444,\n    \"highPrice\": 2050.4912159872056,\n    \"lowPrice\": 1886.257993046283,\n    \"closePrice\": 1978.7796708297622,\n    \"netChange\": 8975.482628801203,\n    \"totalVolume\": 2944,\n    \"tradeTimeInLong\": 5489,\n    \"quoteTimeInLong\": 3345,\n    \"mark\": 6802.2649037628,\n    \"exchange\": \"string\",\n    \"exchangeName\": \"string\",\n    \"volatility\": 6619.401233188474,\n    \"digits\": 8509,\n    \"52WkHigh\": 5529.340123945162,\n    \"52WkLow\": 2729.944100636541,\n    \"peRatio\": 8561.499186798674,\n    \"divAmount\": 6314.373903689716,\n    \"divYield\": 2856.9639710619476,\n    \"divDate\": \"string\",\n    \"securityStatus\": \"string\",\n    \"regularMarketLastPrice\": 4090.5896327839596,\n    \"regularMarketLastSize\": 1092,\n    \"regularMarketNetChange\": 5412.963811005157,\n    \"regularMarketTradeTimeInLong\": 7850\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0c22461-5469-46f4-a53b-238dc6066955",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":symbol",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Security symbol (e.g., AAPL, SPY)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc64176d-e928-4e7d-b688-1bfee19d34d2",
+          "name": "Get Quotes",
+          "request": {
+            "name": "Get Quotes",
+            "description": {
+              "content": "Get real-time quote data for multiple security symbols.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                "quotes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of symbols"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "909ffa51-7cb9-4ba8-8e0c-2d8c56b1d163",
+              "name": "Quote data for all requested symbols",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "AAPL,MSFT,GOOG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"assetType\": \"string\",\n    \"assetMainType\": \"string\",\n    \"cusip\": \"string\",\n    \"symbol\": \"string\",\n    \"description\": \"string\",\n    \"bidPrice\": 9434.223020734866,\n    \"bidSize\": 1530,\n    \"bidId\": \"string\",\n    \"askPrice\": 6266.922274647576,\n    \"askSize\": 4815,\n    \"askId\": \"string\",\n    \"lastPrice\": 8954.734795733837,\n    \"lastSize\": 3589,\n    \"lastId\": \"string\",\n    \"openPrice\": 9269.293651842772,\n    \"highPrice\": 9815.297175671973,\n    \"lowPrice\": 8491.721610128323,\n    \"closePrice\": 9435.135465648518,\n    \"netChange\": 3054.858193634058,\n    \"totalVolume\": 3620,\n    \"tradeTimeInLong\": 7569,\n    \"quoteTimeInLong\": 5909,\n    \"mark\": 7915.593274106687,\n    \"exchange\": \"string\",\n    \"exchangeName\": \"string\",\n    \"volatility\": 7323.179100348422,\n    \"digits\": 4454,\n    \"52WkHigh\": 2445.6685416482114,\n    \"52WkLow\": 435.4264680971276,\n    \"peRatio\": 9547.117920293947,\n    \"divAmount\": 3560.7190350556507,\n    \"divYield\": 5127.864022227944,\n    \"divDate\": \"string\",\n    \"securityStatus\": \"string\",\n    \"regularMarketLastPrice\": 3923.330047373289,\n    \"regularMarketLastSize\": 4112,\n    \"regularMarketNetChange\": 7182.078998470225,\n    \"regularMarketTradeTimeInLong\": 3031\n  },\n  \"key_1\": {\n    \"assetType\": \"string\",\n    \"assetMainType\": \"string\",\n    \"cusip\": \"string\",\n    \"symbol\": \"string\",\n    \"description\": \"string\",\n    \"bidPrice\": 837.015544788251,\n    \"bidSize\": 7767,\n    \"bidId\": \"string\",\n    \"askPrice\": 892.5306113799303,\n    \"askSize\": 6406,\n    \"askId\": \"string\",\n    \"lastPrice\": 2573.3681913550868,\n    \"lastSize\": 4015,\n    \"lastId\": \"string\",\n    \"openPrice\": 1466.219271353444,\n    \"highPrice\": 2050.4912159872056,\n    \"lowPrice\": 1886.257993046283,\n    \"closePrice\": 1978.7796708297622,\n    \"netChange\": 8975.482628801203,\n    \"totalVolume\": 2944,\n    \"tradeTimeInLong\": 5489,\n    \"quoteTimeInLong\": 3345,\n    \"mark\": 6802.2649037628,\n    \"exchange\": \"string\",\n    \"exchangeName\": \"string\",\n    \"volatility\": 6619.401233188474,\n    \"digits\": 8509,\n    \"52WkHigh\": 5529.340123945162,\n    \"52WkLow\": 2729.944100636541,\n    \"peRatio\": 8561.499186798674,\n    \"divAmount\": 6314.373903689716,\n    \"divYield\": 2856.9639710619476,\n    \"divDate\": \"string\",\n    \"securityStatus\": \"string\",\n    \"regularMarketLastPrice\": 4090.5896327839596,\n    \"regularMarketLastSize\": 1092,\n    \"regularMarketNetChange\": 5412.963811005157,\n    \"regularMarketTradeTimeInLong\": 7850\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30633f5f-d72b-42c4-aa44-81db08527d30",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "quotes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "AAPL,MSFT,GOOG"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c5df609-5c52-45f8-943d-6632a0af97ae",
+          "name": "Get Price History",
+          "request": {
+            "name": "Get Price History",
+            "description": {
+              "content": "Get historical price data (OHLCV) for a security symbol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                ":symbol",
+                "pricehistory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "periodType",
+                  "value": "<string>",
+                  "description": "Type of period to show (day, month, year, ytd)"
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<integer>",
+                  "description": "Number of periods to show"
+                },
+                {
+                  "disabled": false,
+                  "key": "frequencyType",
+                  "value": "<string>",
+                  "description": "Type of frequency (minute, daily, weekly, monthly)"
+                },
+                {
+                  "disabled": false,
+                  "key": "frequency",
+                  "value": "<integer>",
+                  "description": "Frequency of data points"
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<long>",
+                  "description": "Start date in milliseconds since epoch"
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<long>",
+                  "description": "End date in milliseconds since epoch"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbol",
+                  "description": "(Required) Security symbol"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be3860ac-2a0f-4978-ad67-32f9d83eddca",
+              "name": "Historical price data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":symbol",
+                    "pricehistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "periodType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "frequencyType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Security symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"candles\": [\n    {\n      \"open\": 2602.0357016501084,\n      \"high\": 8461.664093992658,\n      \"low\": 2983.8840153477377,\n      \"close\": 1088.0727727529381,\n      \"volume\": 8308,\n      \"datetime\": 7687\n    },\n    {\n      \"open\": 3658.215195683452,\n      \"high\": 8293.463760795046,\n      \"low\": 549.4453952958734,\n      \"close\": 9066.662593272626,\n      \"volume\": 5735,\n      \"datetime\": 297\n    }\n  ],\n  \"symbol\": \"string\",\n  \"empty\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17e77b75-1d61-4e35-babc-a4bc7b8edd06",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":symbol",
+                    "pricehistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "periodType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "frequencyType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Security symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d2edf1a-eb47-4777-a3da-15debf2ad500",
+          "name": "Get Hours For Multiple Markets",
+          "request": {
+            "name": "Get Hours For Multiple Markets",
+            "description": {
+              "content": "Retrieve market hours for multiple markets on a specified date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                "hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "markets",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of markets (EQUITY, OPTION, FUTURE, BOND, FOREX)"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "Date for which to retrieve market hours (yyyy-MM-dd)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e75b8b4e-a9fd-4f8f-9e4d-e953a4421a62",
+              "name": "Market hours for requested markets",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "EQUITY,OPTION"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "254e7852-742f-4345-a304-e5d05c3ffa40",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "EQUITY,OPTION"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34b46c98-3ccf-412e-9b34-a50ba3ea72cd",
+          "name": "Get Hours For Single Market",
+          "request": {
+            "name": "Get Hours For Single Market",
+            "description": {
+              "content": "Retrieve market hours for a specific market on a specified date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                ":market",
+                "hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "Date for which to retrieve market hours (yyyy-MM-dd)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "market",
+                  "description": "(Required) Market identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1e974fa-347a-469f-82c0-f543b3a4d282",
+              "name": "Market hours for the specified market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":market",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "market",
+                      "description": "(Required) Market identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26fe0b0d-a857-4136-b5b3-61db001088ba",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":market",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "market",
+                      "description": "(Required) Market identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7457848a-935e-4c22-9eb6-b301b6bc3592",
+          "name": "Get Market Movers",
+          "request": {
+            "name": "Get Market Movers",
+            "description": {
+              "content": "Get the top 10 movers (up or down) by value or percentage for a market index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "marketdata",
+                ":index",
+                "movers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Direction of movement to filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "change",
+                  "value": "<string>",
+                  "description": "Type of change to measure"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "index",
+                  "description": "(Required) Market index symbol"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08d3bd21-e9cb-4ef2-a7d6-eef04b778f82",
+              "name": "Top movers for the index",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":index",
+                    "movers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "change",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "index",
+                      "description": "(Required) Market index symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"change\": 9074.657394071328,\n    \"description\": \"string\",\n    \"direction\": \"up\",\n    \"last\": 6433.741679691564,\n    \"symbol\": \"string\",\n    \"totalVolume\": 2417\n  },\n  {\n    \"change\": 9190.247324814642,\n    \"description\": \"string\",\n    \"direction\": \"down\",\n    \"last\": 6227.271634711164,\n    \"symbol\": \"string\",\n    \"totalVolume\": 3777\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a66ba3a-1582-4328-a7d5-0017a47a947e",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "marketdata",
+                    ":index",
+                    "movers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "change",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "index",
+                      "description": "(Required) Market index symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tdameritrade.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "PlaceTrades AccountAccess MoveMoney"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.tdameritrade.com/v1/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tdameritrade.com/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d694f504-87a0-497a-9b21-de822fd26e48",
+    "name": "TD Ameritrade and Trading Accounts Market Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.\n\nContact Support:\n Name: Charles Schwab (Successor)",
+      "type": "text/plain"
+    }
+  }
+}

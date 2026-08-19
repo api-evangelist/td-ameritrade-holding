@@ -1,0 +1,413 @@
+{
+  "item": [
+    {
+      "id": "b8f0258c-0217-4564-9552-855464fb3d43",
+      "name": "Accounts",
+      "description": {
+        "content": "Account information, balances, and positions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6fd23e07-cc21-4a54-9b2f-ab90ad4331ff",
+          "name": "Get All Accounts",
+          "request": {
+            "name": "Get All Accounts",
+            "description": {
+              "content": "Retrieve account data including balances, positions, and orders for all linked accounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of optional fields to include (positions, orders)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1be75317-2ee0-4c9d-95c3-fe9aa9cb8a2f",
+              "name": "List of all linked accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "positions,orders"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"securitiesAccount\": {\n      \"accountId\": \"string\",\n      \"type\": \"CASH\",\n      \"roundTrips\": 7203,\n      \"isDayTrader\": true,\n      \"isClosingOnlyRestricted\": false,\n      \"currentBalances\": {\n        \"availableFunds\": 1588.503473312497,\n        \"buyingPower\": 8556.210220543504,\n        \"liquidationValue\": 9084.09576797536,\n        \"cashBalance\": 312.2224229172421\n      },\n      \"positions\": [\n        {\n          \"shortQuantity\": 721.4440964368274,\n          \"averagePrice\": 4030.7201721286424,\n          \"currentValue\": 6779.152456919577,\n          \"longQuantity\": 9261.000128419573,\n          \"settledLongQuantity\": 315.7624458578545,\n          \"settledShortQuantity\": 8697.758323687704,\n          \"instrument\": {\n            \"cusip\": \"string\",\n            \"symbol\": \"string\",\n            \"description\": \"string\",\n            \"exchange\": \"string\",\n            \"assetType\": \"FUTURE\"\n          }\n        },\n        {\n          \"shortQuantity\": 1781.2168612314017,\n          \"averagePrice\": 3232.8575402066517,\n          \"currentValue\": 9215.711016972495,\n          \"longQuantity\": 1594.9281257890514,\n          \"settledLongQuantity\": 875.1197821054035,\n          \"settledShortQuantity\": 2336.2786198719778,\n          \"instrument\": {\n            \"cusip\": \"string\",\n            \"symbol\": \"string\",\n            \"description\": \"string\",\n            \"exchange\": \"string\",\n            \"assetType\": \"ETF\"\n          }\n        }\n      ]\n    }\n  },\n  {\n    \"securitiesAccount\": {\n      \"accountId\": \"string\",\n      \"type\": \"MARGIN\",\n      \"roundTrips\": 7173,\n      \"isDayTrader\": false,\n      \"isClosingOnlyRestricted\": false,\n      \"currentBalances\": {\n        \"availableFunds\": 9881.911036855723,\n        \"buyingPower\": 665.0207712437173,\n        \"liquidationValue\": 7872.990412274859,\n        \"cashBalance\": 4534.150067784789\n      },\n      \"positions\": [\n        {\n          \"shortQuantity\": 7536.392345817746,\n          \"averagePrice\": 6104.340353648836,\n          \"currentValue\": 837.8626904404985,\n          \"longQuantity\": 8382.629517917127,\n          \"settledLongQuantity\": 8587.554839504208,\n          \"settledShortQuantity\": 2813.819124774672,\n          \"instrument\": {\n            \"cusip\": \"string\",\n            \"symbol\": \"string\",\n            \"description\": \"string\",\n            \"exchange\": \"string\",\n            \"assetType\": \"ETF\"\n          }\n        },\n        {\n          \"shortQuantity\": 6433.676877783038,\n          \"averagePrice\": 2486.3598054636336,\n          \"currentValue\": 6543.029845404192,\n          \"longQuantity\": 2830.371036536431,\n          \"settledLongQuantity\": 6739.895578250373,\n          \"settledShortQuantity\": 4100.936112279309,\n          \"instrument\": {\n            \"cusip\": \"string\",\n            \"symbol\": \"string\",\n            \"description\": \"string\",\n            \"exchange\": \"string\",\n            \"assetType\": \"INDEX\"\n          }\n        }\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47e67fe9-573b-467c-839e-459f97a8d2ce",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "positions,orders"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4dbcb7c0-8fa0-4313-b4e4-8789a33e2363",
+          "name": "Get Account",
+          "request": {
+            "name": "Get Account",
+            "description": {
+              "content": "Retrieve account balances, positions, and orders for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of optional fields to include (positions, orders)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accountId",
+                  "description": "(Required) Unique account identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d501bd6-2ebb-4df9-8855-cea62cd7b05b",
+              "name": "Account details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "positions"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"securitiesAccount\": {\n    \"accountId\": \"string\",\n    \"type\": \"MARGIN\",\n    \"roundTrips\": 8602,\n    \"isDayTrader\": true,\n    \"isClosingOnlyRestricted\": false,\n    \"currentBalances\": {\n      \"availableFunds\": 3109.5824798938734,\n      \"buyingPower\": 1416.4279627017463,\n      \"liquidationValue\": 5842.8556498230555,\n      \"cashBalance\": 1693.8505433591677\n    },\n    \"positions\": [\n      {\n        \"shortQuantity\": 4306.258098853143,\n        \"averagePrice\": 6729.617847823764,\n        \"currentValue\": 3616.2846773369383,\n        \"longQuantity\": 6428.874011803742,\n        \"settledLongQuantity\": 7952.380888705165,\n        \"settledShortQuantity\": 9901.015464411514,\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"FOREX\"\n        }\n      },\n      {\n        \"shortQuantity\": 9770.740515304014,\n        \"averagePrice\": 6132.557338731363,\n        \"currentValue\": 903.4990871524428,\n        \"longQuantity\": 8929.28071283773,\n        \"settledLongQuantity\": 971.6177732702747,\n        \"settledShortQuantity\": 4744.249036905257,\n        \"instrument\": {\n          \"cusip\": \"string\",\n          \"symbol\": \"string\",\n          \"description\": \"string\",\n          \"exchange\": \"string\",\n          \"assetType\": \"ETF\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de29bae2-0123-477d-857c-9cf8c7065867",
+              "name": "Unauthorized - Valid OAuth2 token required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "positions"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0e539df-7bf2-48fe-bd9e-ea6a259657e1",
+              "name": "Not Found - Resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "positions"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accountId",
+                      "description": "(Required) Unique account identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tdameritrade.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "PlaceTrades AccountAccess MoveMoney"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.tdameritrade.com/v1/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.tdameritrade.com/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7f497f5a-f866-4077-a23e-5cd4db64249e",
+    "name": "TD Ameritrade and Trading Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.\n\nContact Support:\n Name: Charles Schwab (Successor)",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TD Ameritrade and Trading Accounts Instruments API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tdameritrade.com/auth",
+      "accessTokenUrl": "https://api.tdameritrade.com/v1/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instruments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/instruments",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Value to pass for the symbol (supports regex for FUNDAMENTAL projection)"
+              },
+              {
+                "name": "projection",
+                "value": "",
+                "type": "query",
+                "description": "Type of search (symbol-search, symbol-regex, desc-search, desc-regex, fundamental)"
+              }
+            ]
+          },
+          "docs": "Search for or retrieve instrument data including fundamental data by symbol or description."
+        },
+        {
+          "info": {
+            "name": "Get Instrument",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tdameritrade.com/v1/instruments/:cusip",
+            "params": [
+              {
+                "name": "cusip",
+                "value": "",
+                "type": "path",
+                "description": "CUSIP identifier for the instrument"
+              }
+            ]
+          },
+          "docs": "Get details for a specific instrument by CUSIP identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
