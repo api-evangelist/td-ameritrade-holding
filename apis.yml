@@ -165,6 +165,11 @@ apis:
   - type: Documentation
     url: https://developer.tdameritrade.com/
 common:
+  - type: ParentCompany
+    url: https://apis.io/providers/charles-schwab/
+    name: Charles Schwab
+    x-relationship: acquired
+    x-evidence: "The company was acquired by Charles Schwab in 2020 and the TD Ameritrade platform was fully migrated to Charles Schwab in May 2024."
   - type: AgenticAccess
     url: agentic-access/td-ameritrade-holding-agentic-access.yml
   - type: DomainSecurity
