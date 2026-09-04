@@ -29,9 +29,10 @@ accessModel:
   source:
   - plans
   - authentication
+  - {url: 'https://www.tdameritrade.com', status: 301, note: 'declared website redirects to https://www.schwab.com/welcome-to-schwab — a different registrable domain (tdameritrade.com -> schwab.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
   generated: '2026-07-22'
   method: derived
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/td-ameritrade-holding.png
 tags:
