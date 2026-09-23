@@ -1,7 +1,9 @@
 ---
 title: TD Bank Financial Group - Media Room - Media Releases
 url: https://td.mediaroom.com/index.php?s=19518&%3Bitem=35847&o=965
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"TD Ameritrade Holding" press release artificial intelligence'
 position: 1
 source: serpapi-google

@@ -1,7 +1,9 @@
 ---
 title: TD Ameritrade Launches AI-Driven Educational Platform
 url: https://www.investopedia.com/news/td-ameritrade-launches-aidriven-educational-platform/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"TD Ameritrade Holding" press release artificial intelligence'
 position: 2
 source: serpapi-google

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: TD Ameritrade and Trading Accounts API
   description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
@@ -68,29 +68,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Not Found - Resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized - Valid OAuth2 token required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        message:
-          type: string
-          description: Detailed error description
     Instrument:
       type: object
       description: A financial instrument (stock, ETF, option, etc.)
@@ -116,30 +102,6 @@ components:
           - MUTUAL_FUND
           - OPTION
           - UNKNOWN
-    Position:
-      type: object
-      description: A security position held in an account
-      properties:
-        shortQuantity:
-          type: number
-          format: double
-        averagePrice:
-          type: number
-          format: double
-        currentValue:
-          type: number
-          format: double
-        longQuantity:
-          type: number
-          format: double
-        settledLongQuantity:
-          type: number
-          format: double
-        settledShortQuantity:
-          type: number
-          format: double
-        instrument:
-          $ref: '#/components/schemas/Instrument'
     Account:
       type: object
       description: Brokerage account information including balances and positions
@@ -184,14 +146,52 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Position'
-  parameters:
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: Unique account identifier
-      schema:
-        type: string
+    Position:
+      type: object
+      description: A security position held in an account
+      properties:
+        shortQuantity:
+          type: number
+          format: double
+        averagePrice:
+          type: number
+          format: double
+        currentValue:
+          type: number
+          format: double
+        longQuantity:
+          type: number
+          format: double
+        settledLongQuantity:
+          type: number
+          format: double
+        settledShortQuantity:
+          type: number
+          format: double
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
+  responses:
+    NotFound:
+      description: Not Found - Resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized - Valid OAuth2 token required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

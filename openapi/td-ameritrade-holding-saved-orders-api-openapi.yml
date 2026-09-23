@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: TD Ameritrade and Trading Accounts Saved Orders API
+  title: TD Ameritrade Accounts and Trading Saved Orders API
   description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
   version: '1'
   contact:
@@ -122,7 +122,84 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    AccountId:
+      name: accountId
+      in: path
+      required: true
+      description: Unique account identifier
+      schema:
+        type: string
   schemas:
+    Instrument:
+      type: object
+      description: A financial instrument (stock, ETF, option, etc.)
+      properties:
+        cusip:
+          type: string
+        symbol:
+          type: string
+        description:
+          type: string
+        exchange:
+          type: string
+        assetType:
+          type: string
+          enum:
+          - EQUITY
+          - ETF
+          - FOREX
+          - FUTURE
+          - FUTURE_OPTION
+          - INDEX
+          - INDICATOR
+          - MUTUAL_FUND
+          - OPTION
+          - UNKNOWN
+    OrderRequest:
+      type: object
+      description: Order placement request
+      required:
+      - orderType
+      - session
+      - duration
+      - orderStrategyType
+      - orderLegCollection
+      properties:
+        orderType:
+          type: string
+          enum:
+          - MARKET
+          - LIMIT
+          - STOP
+          - STOP_LIMIT
+        session:
+          type: string
+          enum:
+          - NORMAL
+          - AM
+          - PM
+          - SEAMLESS
+        price:
+          type: number
+          format: double
+          description: Limit price (required for LIMIT orders)
+        duration:
+          type: string
+          enum:
+          - DAY
+          - GOOD_TILL_CANCEL
+          - FILL_OR_KILL
+        orderStrategyType:
+          type: string
+          enum:
+          - SINGLE
+          - OCO
+          - TRIGGER
+        orderLegCollection:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLeg'
     Order:
       type: object
       description: A trade order
@@ -210,75 +287,6 @@ components:
         message:
           type: string
           description: Detailed error description
-    OrderRequest:
-      type: object
-      description: Order placement request
-      required:
-      - orderType
-      - session
-      - duration
-      - orderStrategyType
-      - orderLegCollection
-      properties:
-        orderType:
-          type: string
-          enum:
-          - MARKET
-          - LIMIT
-          - STOP
-          - STOP_LIMIT
-        session:
-          type: string
-          enum:
-          - NORMAL
-          - AM
-          - PM
-          - SEAMLESS
-        price:
-          type: number
-          format: double
-          description: Limit price (required for LIMIT orders)
-        duration:
-          type: string
-          enum:
-          - DAY
-          - GOOD_TILL_CANCEL
-          - FILL_OR_KILL
-        orderStrategyType:
-          type: string
-          enum:
-          - SINGLE
-          - OCO
-          - TRIGGER
-        orderLegCollection:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderLeg'
-    Instrument:
-      type: object
-      description: A financial instrument (stock, ETF, option, etc.)
-      properties:
-        cusip:
-          type: string
-        symbol:
-          type: string
-        description:
-          type: string
-        exchange:
-          type: string
-        assetType:
-          type: string
-          enum:
-          - EQUITY
-          - ETF
-          - FOREX
-          - FUTURE
-          - FUTURE_OPTION
-          - INDEX
-          - INDICATOR
-          - MUTUAL_FUND
-          - OPTION
-          - UNKNOWN
     OrderLeg:
       type: object
       properties:
@@ -324,14 +332,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    AccountId:
-      name: accountId
-      in: path
-      required: true
-      description: Unique account identifier
-      schema:
-        type: string
   securitySchemes:
     OAuth2:
       type: oauth2

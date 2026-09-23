@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: TD Ameritrade and Trading Accounts Instruments API
+  title: TD Ameritrade Accounts and Trading Instruments API
   description: The TD Ameritrade Accounts and Trading API provided programmatic access to brokerage account information, order management, market data, instruments, watchlists, and trading operations. This API was discontinued following the Charles Schwab acquisition of TD Ameritrade, with full migration completed in May 2024. The successor API is the Charles Schwab Trader API at developer.schwab.com. Documentation preserved for historical reference.
   version: '1'
   contact:
@@ -82,6 +82,15 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        message:
+          type: string
+          description: Detailed error description
     Instrument:
       type: object
       description: A financial instrument (stock, ETF, option, etc.)
@@ -107,15 +116,6 @@ components:
           - MUTUAL_FUND
           - OPTION
           - UNKNOWN
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-        message:
-          type: string
-          description: Detailed error description
   responses:
     Unauthorized:
       description: Unauthorized - Valid OAuth2 token required

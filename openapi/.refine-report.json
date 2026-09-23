@@ -1,15 +1,7 @@
 {
   "provider": "td-ameritrade-holding",
   "sources": [
-    "td-ameritrade-holding-accounts-api-openapi.yml",
-    "td-ameritrade-holding-instruments-api-openapi.yml",
-    "td-ameritrade-holding-market-data-api-openapi.yml",
-    "td-ameritrade-holding-options-api-openapi.yml",
-    "td-ameritrade-holding-orders-api-openapi.yml",
-    "td-ameritrade-holding-saved-orders-api-openapi.yml",
-    "td-ameritrade-holding-transactions-api-openapi.yml",
-    "td-ameritrade-holding-user-management-api-openapi.yml",
-    "td-ameritrade-holding-watchlists-api-openapi.yml"
+    "_original/td-ameritrade-accounts-trading-openapi.yml"
   ],
   "outputs": [
     "td-ameritrade-holding-accounts-api-openapi.yml",
@@ -25,6 +17,20 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "td-ameritrade-accounts-trading-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "td-ameritrade-holding-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-instruments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-market-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-options-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-saved-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-user-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "td-ameritrade-holding-watchlists-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
